@@ -1,0 +1,8 @@
+/.venv
+*.sw?
+/.direnv/
+.ninja_log
+__pycache__
+src.egg-info/
+
+dev_personal/

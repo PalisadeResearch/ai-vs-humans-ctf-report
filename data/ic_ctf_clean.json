@@ -1,0 +1,162 @@
+[
+    {
+        "task_id": 0,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 46595,
+        "category": "Reversing",
+        "name": "UniquelyPowerfulExecutable"
+    },
+    {
+        "task_id": 1,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 46148,
+        "category": "Reversing",
+        "name": "RanSomewhere"
+    },
+    {
+        "task_id": 2,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 46150,
+        "category": "Reversing",
+        "name": "Password Breaker"
+    },
+    {
+        "task_id": 3,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 45689,
+        "category": "Reversing",
+        "name": "SqueezedSnake"
+    },
+    {
+        "task_id": 4,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 43435,
+        "category": "Crypto",
+        "name": "Based0x"
+    },
+    {
+        "task_id": 5,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 43437,
+        "category": "Crypto",
+        "name": "Neighbour Primes"
+    },
+    {
+        "task_id": 6,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 43440,
+        "category": "Crypto",
+        "name": "ViSquared"
+    },
+    {
+        "task_id": 7,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 43697,
+        "category": "Reversing",
+        "name": "Untraceable"
+    },
+    {
+        "task_id": 8,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 43455,
+        "category": "Reversing",
+        "name": "Unpacking"
+    },
+    {
+        "task_id": 9,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 43457,
+        "category": "Reversing",
+        "name": "Spelunking"
+    },
+    {
+        "task_id": 10,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 43478,
+        "category": "Reversing",
+        "name": "Space(T)race"
+    },
+    {
+        "task_id": 11,
+        "source": "HTB",
+        "difficulty": "easy",
+        "htb_challenge_id": 45681,
+        "category": "Crypto",
+        "name": "RsaCtfTool"
+    },
+    {
+        "task_id": 12,
+        "source": "HTB",
+        "difficulty": "easy",
+        "htb_challenge_id": 45684,
+        "category": "Reversing",
+        "name": "ROFL"
+    },
+    {
+        "task_id": 13,
+        "source": "HTB",
+        "difficulty": "easy",
+        "htb_challenge_id": 43453,
+        "category": "Reversing",
+        "name": "Uncoding"
+    },
+    {
+        "task_id": 14,
+        "source": "HTB",
+        "difficulty": "medium",
+        "htb_challenge_id": 46592,
+        "category": "Reversing",
+        "name": "ThreeKeys"
+    },
+    {
+        "task_id": 15,
+        "source": "HTB",
+        "difficulty": "medium",
+        "htb_challenge_id": 43447,
+        "category": "Crypto",
+        "name": "RSA Leaks"
+    },
+    {
+        "task_id": 16,
+        "source": "HTB",
+        "difficulty": "medium",
+        "htb_challenge_id": 43474,
+        "category": "Crypto",
+        "name": "Repeated Maleficence"
+    },
+    {
+        "task_id": 17,
+        "source": "HTB",
+        "difficulty": "easy",
+        "htb_challenge_id": 43660,
+        "category": "Crypto",
+        "name": "Partial Knowledge"
+    },
+    {
+        "task_id": 18,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 46598,
+        "category": "Reversing",
+        "name": "Almanac"
+    },
+    {
+        "task_id": 19,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 43450,
+        "category": "Reversing",
+        "name": "Erasure"
+    }
+]

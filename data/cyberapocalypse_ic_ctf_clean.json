@@ -1,0 +1,560 @@
+[
+    {
+        "task_id": 0,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 47361,
+        "has_docker": true,
+        "category": "Blockchain",
+        "name": "Eldorion"
+    },
+    {
+        "task_id": 1,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 47367,
+        "has_docker": true,
+        "category": "Web",
+        "name": "Trial by Fire"
+    },
+    {
+        "task_id": 2,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 47370,
+        "has_docker": true,
+        "category": "Web",
+        "name": "Whispers of the Moonbeam"
+    },
+    {
+        "task_id": 3,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 47388,
+        "has_docker": false,
+        "category": "OSINT",
+        "name": "Echoes in Stone"
+    },
+    {
+        "task_id": 4,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 47391,
+        "has_docker": false,
+        "category": "OSINT",
+        "name": "The Stone That Whispers"
+    },
+    {
+        "task_id": 5,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 47403,
+        "has_docker": true,
+        "category": "Coding",
+        "name": "Summoners Incantation"
+    },
+    {
+        "task_id": 6,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 47406,
+        "has_docker": true,
+        "category": "Coding",
+        "name": "Enchanted Cipher"
+    },
+    {
+        "task_id": 7,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 47409,
+        "has_docker": true,
+        "category": "Coding",
+        "name": "Dragon Fury"
+    },
+    {
+        "task_id": 8,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 47412,
+        "has_docker": true,
+        "category": "Coding",
+        "name": "Dragon Flight"
+    },
+    {
+        "task_id": 9,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 47415,
+        "has_docker": true,
+        "category": "Coding",
+        "name": "ClockWork Gurdian"
+    },
+    {
+        "task_id": 10,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 47460,
+        "has_docker": true,
+        "category": "Forensics",
+        "name": "Thorin\u2019s Amulet"
+    },
+    {
+        "task_id": 11,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 47463,
+        "has_docker": true,
+        "category": "Forensics",
+        "name": "A new Hire"
+    },
+    {
+        "task_id": 12,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 47481,
+        "has_docker": true,
+        "category": "Pwn",
+        "name": "Quack Quack"
+    },
+    {
+        "task_id": 13,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 47484,
+        "has_docker": true,
+        "category": "Pwn",
+        "name": "Blessing"
+    },
+    {
+        "task_id": 14,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 47502,
+        "has_docker": false,
+        "category": "Reversing",
+        "name": "SealedRune"
+    },
+    {
+        "task_id": 15,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 47505,
+        "has_docker": false,
+        "category": "Reversing",
+        "name": "EncryptedScroll"
+    },
+    {
+        "task_id": 16,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 47523,
+        "has_docker": true,
+        "category": "Crypto",
+        "name": "Traces"
+    },
+    {
+        "task_id": 17,
+        "source": "HTB",
+        "difficulty": "very easy",
+        "htb_challenge_id": 47526,
+        "has_docker": true,
+        "category": "Crypto",
+        "name": "Kewiri"
+    },
+    {
+        "task_id": 18,
+        "source": "HTB",
+        "difficulty": "easy",
+        "htb_challenge_id": 47382,
+        "has_docker": false,
+        "category": "OSINT",
+        "name": "The Hillside Haven"
+    },
+    {
+        "task_id": 19,
+        "source": "HTB",
+        "difficulty": "easy",
+        "htb_challenge_id": 47385,
+        "has_docker": false,
+        "category": "OSINT",
+        "name": "The Mechanical Bird's Nest"
+    },
+    {
+        "task_id": 20,
+        "source": "HTB",
+        "difficulty": "easy",
+        "htb_challenge_id": 47394,
+        "has_docker": true,
+        "category": "Secure coding",
+        "name": "Arcane Auctions"
+    },
+    {
+        "task_id": 21,
+        "source": "HTB",
+        "difficulty": "easy",
+        "htb_challenge_id": 47397,
+        "has_docker": true,
+        "category": "Secure coding",
+        "name": "Stoneforge's Domain"
+    },
+    {
+        "task_id": 22,
+        "source": "HTB",
+        "difficulty": "easy",
+        "htb_challenge_id": 47400,
+        "has_docker": true,
+        "category": "Secure coding",
+        "name": "Lyra's Tavern"
+    },
+    {
+        "task_id": 23,
+        "source": "HTB",
+        "difficulty": "easy",
+        "htb_challenge_id": 47418,
+        "has_docker": true,
+        "category": "AI",
+        "name": "Lunar Orb"
+    },
+    {
+        "task_id": 24,
+        "source": "HTB",
+        "difficulty": "easy",
+        "htb_challenge_id": 47421,
+        "has_docker": true,
+        "category": "AI",
+        "name": "Mirror Witch"
+    },
+    {
+        "task_id": 25,
+        "source": "HTB",
+        "difficulty": "easy",
+        "htb_challenge_id": 47424,
+        "has_docker": true,
+        "category": "AI",
+        "name": "Embassy"
+    },
+    {
+        "task_id": 26,
+        "source": "HTB",
+        "difficulty": "easy",
+        "htb_challenge_id": 47427,
+        "has_docker": true,
+        "category": "AI",
+        "name": "Elixir Emporium"
+    },
+    {
+        "task_id": 27,
+        "source": "HTB",
+        "difficulty": "easy",
+        "htb_challenge_id": 47430,
+        "has_docker": true,
+        "category": "AI",
+        "name": "Cursed GateKeeper"
+    },
+    {
+        "task_id": 28,
+        "source": "HTB",
+        "difficulty": "easy",
+        "htb_challenge_id": 47436,
+        "has_docker": true,
+        "category": "Web",
+        "name": "Cyber Attack"
+    },
+    {
+        "task_id": 29,
+        "source": "HTB",
+        "difficulty": "easy",
+        "htb_challenge_id": 47454,
+        "has_docker": false,
+        "category": "Forensics",
+        "name": "Silent Trap"
+    },
+    {
+        "task_id": 30,
+        "source": "HTB",
+        "difficulty": "easy",
+        "htb_challenge_id": 47457,
+        "has_docker": false,
+        "category": "Forensics",
+        "name": "Stealth Invasion"
+    },
+    {
+        "task_id": 31,
+        "source": "HTB",
+        "difficulty": "easy",
+        "htb_challenge_id": 47475,
+        "has_docker": true,
+        "category": "Pwn",
+        "name": "Crossbow"
+    },
+    {
+        "task_id": 32,
+        "source": "HTB",
+        "difficulty": "easy",
+        "htb_challenge_id": 47478,
+        "has_docker": true,
+        "category": "Pwn",
+        "name": "Laconic"
+    },
+    {
+        "task_id": 33,
+        "source": "HTB",
+        "difficulty": "easy",
+        "htb_challenge_id": 47496,
+        "has_docker": false,
+        "category": "Reversing",
+        "name": "EndlessCycle"
+    },
+    {
+        "task_id": 34,
+        "source": "HTB",
+        "difficulty": "easy",
+        "htb_challenge_id": 47499,
+        "has_docker": false,
+        "category": "Reversing",
+        "name": "Impossimaze"
+    },
+    {
+        "task_id": 35,
+        "source": "HTB",
+        "difficulty": "easy",
+        "htb_challenge_id": 47517,
+        "has_docker": false,
+        "category": "Crypto",
+        "name": "Prelim"
+    },
+    {
+        "task_id": 36,
+        "source": "HTB",
+        "difficulty": "easy",
+        "htb_challenge_id": 47520,
+        "has_docker": true,
+        "category": "Crypto",
+        "name": "Hourcle"
+    },
+    {
+        "task_id": 37,
+        "source": "HTB",
+        "difficulty": "easy",
+        "htb_challenge_id": 47532,
+        "has_docker": true,
+        "category": "Blockchain",
+        "name": "HeliosDEX"
+    },
+    {
+        "task_id": 38,
+        "source": "HTB",
+        "difficulty": "easy",
+        "htb_challenge_id": 47343,
+        "has_docker": false,
+        "category": "ML",
+        "name": "Enchanted Weights"
+    },
+    {
+        "task_id": 39,
+        "source": "HTB",
+        "difficulty": "medium",
+        "htb_challenge_id": 47373,
+        "has_docker": false,
+        "category": "OSINT",
+        "name": "The Poisoned Scroll"
+    },
+    {
+        "task_id": 40,
+        "source": "HTB",
+        "difficulty": "medium",
+        "htb_challenge_id": 47376,
+        "has_docker": false,
+        "category": "OSINT",
+        "name": "The Shadowed Sigil"
+    },
+    {
+        "task_id": 41,
+        "source": "HTB",
+        "difficulty": "medium",
+        "htb_challenge_id": 47379,
+        "has_docker": false,
+        "category": "OSINT",
+        "name": "The Ancient Citadel"
+    },
+    {
+        "task_id": 42,
+        "source": "HTB",
+        "difficulty": "medium",
+        "htb_challenge_id": 47439,
+        "has_docker": true,
+        "category": "Web",
+        "name": "Eldoria Panel"
+    },
+    {
+        "task_id": 43,
+        "source": "HTB",
+        "difficulty": "medium",
+        "htb_challenge_id": 47442,
+        "has_docker": true,
+        "category": "Web",
+        "name": "Eldoria Realms"
+    },
+    {
+        "task_id": 44,
+        "source": "HTB",
+        "difficulty": "medium",
+        "htb_challenge_id": 47448,
+        "has_docker": false,
+        "category": "Forensics",
+        "name": "Cave Expedition"
+    },
+    {
+        "task_id": 45,
+        "source": "HTB",
+        "difficulty": "medium",
+        "htb_challenge_id": 47451,
+        "has_docker": false,
+        "category": "Forensics",
+        "name": "ToolPie"
+    },
+    {
+        "task_id": 46,
+        "source": "HTB",
+        "difficulty": "medium",
+        "htb_challenge_id": 47469,
+        "has_docker": true,
+        "category": "Pwn",
+        "name": "Contractor"
+    },
+    {
+        "task_id": 47,
+        "source": "HTB",
+        "difficulty": "medium",
+        "htb_challenge_id": 47472,
+        "has_docker": true,
+        "category": "Pwn",
+        "name": "Strategist"
+    },
+    {
+        "task_id": 48,
+        "source": "HTB",
+        "difficulty": "medium",
+        "htb_challenge_id": 47493,
+        "has_docker": false,
+        "category": "Reversing",
+        "name": "Singlestep"
+    },
+    {
+        "task_id": 49,
+        "source": "HTB",
+        "difficulty": "medium",
+        "htb_challenge_id": 47511,
+        "has_docker": false,
+        "category": "Crypto",
+        "name": "Copperbox"
+    },
+    {
+        "task_id": 50,
+        "source": "HTB",
+        "difficulty": "medium",
+        "htb_challenge_id": 47514,
+        "has_docker": false,
+        "category": "Crypto",
+        "name": "Verilicious"
+    },
+    {
+        "task_id": 51,
+        "source": "HTB",
+        "difficulty": "medium",
+        "htb_challenge_id": 47534,
+        "has_docker": true,
+        "category": "Blockchain",
+        "name": "EldoriaGate"
+    },
+    {
+        "task_id": 52,
+        "source": "HTB",
+        "difficulty": "medium",
+        "htb_challenge_id": 47337,
+        "has_docker": false,
+        "category": "ML",
+        "name": "Crystal Corruption"
+    },
+    {
+        "task_id": 53,
+        "source": "HTB",
+        "difficulty": "medium",
+        "htb_challenge_id": 47340,
+        "has_docker": true,
+        "category": "ML",
+        "name": "Wasteland"
+    },
+    {
+        "task_id": 54,
+        "source": "HTB",
+        "difficulty": "hard",
+        "htb_challenge_id": 47433,
+        "has_docker": true,
+        "category": "Web",
+        "name": "Aurors Archive"
+    },
+    {
+        "task_id": 55,
+        "source": "HTB",
+        "difficulty": "hard",
+        "htb_challenge_id": 47445,
+        "has_docker": true,
+        "category": "Forensics",
+        "name": "Tales for the Brave"
+    },
+    {
+        "task_id": 56,
+        "source": "HTB",
+        "difficulty": "hard",
+        "htb_challenge_id": 47466,
+        "has_docker": true,
+        "category": "Pwn",
+        "name": "Vault"
+    },
+    {
+        "task_id": 57,
+        "source": "HTB",
+        "difficulty": "hard",
+        "htb_challenge_id": 47487,
+        "has_docker": false,
+        "category": "Reversing",
+        "name": "Heart Protector"
+    },
+    {
+        "task_id": 58,
+        "source": "HTB",
+        "difficulty": "hard",
+        "htb_challenge_id": 47490,
+        "has_docker": false,
+        "category": "Reversing",
+        "name": "Gateway"
+    },
+    {
+        "task_id": 59,
+        "source": "HTB",
+        "difficulty": "hard",
+        "htb_challenge_id": 47508,
+        "has_docker": true,
+        "category": "Crypto",
+        "name": "Twin Oracles"
+    },
+    {
+        "task_id": 60,
+        "source": "HTB",
+        "difficulty": "hard",
+        "htb_challenge_id": 47331,
+        "has_docker": false,
+        "category": "ML",
+        "name": "Malakar's Deception"
+    },
+    {
+        "task_id": 61,
+        "source": "HTB",
+        "difficulty": "hard",
+        "htb_challenge_id": 47334,
+        "has_docker": true,
+        "category": "ML",
+        "name": "Reverse Prompt"
+    }
+]

@@ -1,0 +1,46 @@
+rule uv_sync
+  command = uv sync --all-extras --dev
+
+rule python_run
+  command = python3 $in $out
+
+rule latexmk
+  command = latexmk -pdf -interaction=nonstopmode -silent -output-directory=paper-latex $in
+  description = Building $out with latexmk
+
+rule typst_compile
+  command = typst compile $in $out
+
+build .venv: uv_sync
+
+# build paper-typst/hello.svg: figure src/hello.py | .venv
+
+build $
+  paper-typst/plots/team_progression_AI_vs_Humans_CTF_aligned.png $
+  paper-typst/plots/team_progression_AI_vs_Humans_CTF_aligned_normalized.png $
+  paper-typst/plots/team_progression_CyberApocalypse_aligned.png $
+  paper-typst/plots/team_progression_CyberApocalypse_aligned_normalized.png $
+  paper-typst/plots/challenge_solve_times_AI_vs_Humans_CTF.png $
+  paper-typst/plots/is_ai_solved_vs_median_human_time_regression_CyberApocalypse_detailed.png:$
+    python_run src/datavis.py | .venv
+
+build $
+  paper-typst/tables/ai_team_standings_AI_vs_Humans_CTF.csv $
+  paper-typst/tables/ai_team_standings_CyberApocalypse.csv:$
+    python_run src/tables.py | .venv
+
+build tables: phony paper-typst/tables/ai_team_standings_AI_vs_Humans_CTF.csv
+
+build figures: phony $
+  paper-typst/plots/team_progression_AI_vs_Humans_CTF_aligned.png $
+  paper-typst/plots/team_progression_AI_vs_Humans_CTF_aligned_normalized.png $
+  paper-typst/plots/team_progression_CyberApocalypse_aligned.png $
+  paper-typst/plots/team_progression_CyberApocalypse_aligned_normalized.png $
+  paper-typst/plots/challenge_solve_times_AI_vs_Humans_CTF.png $
+  paper-typst/plots/is_ai_solved_vs_median_human_time_regression_CyberApocalypse_detailed.png
+
+build paper-typst/main.pdf: typst_compile paper-typst/main.typ | figures tables
+
+build paper: phony paper-typst/main.pdf
+
+default paper

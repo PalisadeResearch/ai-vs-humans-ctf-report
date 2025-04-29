@@ -1,0 +1,11 @@
+{
+    "recommendations": [
+        "myriad-dreamin.tinymist",
+        "ms-python.black-formatter",
+        "charliermarsh.ruff",
+        "mkhl.direnv",
+        "editorconfig.editorconfig",
+        "timonwong.shellcheck",
+        "melak47.ninja-syntax"
+    ]
+}
