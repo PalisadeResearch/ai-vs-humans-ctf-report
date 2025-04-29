@@ -1,10 +1,3 @@
-Archiving this repo as it has participants names in its git history
-
-# CAUTION
-
-Before making this repo public - get approval from HTB that we can release the data.
-
-
 # template
 
 A template repository implementing Palisade's coding guide. Features:
