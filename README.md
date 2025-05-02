@@ -14,6 +14,8 @@ A template repository implementing Palisade's coding guide. Features:
 To set up your system for the first time, run:
 
 ```bash
+# Pull the images from git lfs
+git lfs pull
 # Setup Nix
 sh <(curl -L https://nixos.org/nix/install) --daemon
 mkdir -p ~/.config/nix
