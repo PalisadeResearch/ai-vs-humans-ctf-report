@@ -2,10 +2,14 @@
 
 #set text(size: 10pt)
 
-
+// Comments made by Dmitrii
 #let tododmv(body) = margin-note(stroke: blue)[#text(body, size: 7pt)]
 
+// Commnts made by Artem
 #let todoap(body) = margin-note(stroke: red)[#text(body, size: 7pt)]
+
+//Comments made by Malika
+#let todomt(body) = margin-note(stroke: green)[#text(body, size: 7pt)]
 
 #align(center)[
   #text(17pt, [Evaluating AI cyber capabilities with crowdsoursed elicitation])
@@ -22,7 +26,7 @@
   #block(width: 80%, [
     #align(left)[
       == v1
-      AI capability evaluations often suffer from underelicitation. Evaluations of harmful capabilities, like cyber, exhibit this even more: frontier AI labs are not incentivized to put effort into proving their models dangerous, while safety organizations often lack the necessary resources to pit much effort into agent design. //DISCUSS
+      AI capability evaluations often suffer from underelicitation. Evaluations of harmful capabilities, like cyber, exhibit this even more: frontier AI labs are not incentivized to put effort into proving their models dangerous, while safety organizations often lack the necessary resources to pit much effort into agent design //DISCUSS
 
       Additionally, classic benchmarks often lack the intuition of how its score translates to the equivalent human expertise.
 
@@ -46,7 +50,7 @@
 
 = Introduction
 
-Eliciting AI capabilities is hard. Yet accurately estimating AI capabilities is important, especially when it comes to dangerous capabilities, as it determines whether a model is safe to release.
+Eliciting AI capabilities is hard and costly. Yet accurately estimating them is important, especially when it comes to dangerous capabilities, as it determines whether a model is safe to release. 
 //Regulators and frontier AI Labs need to know if the model has capabilities to inflict substantial damage in the hands of a motivated malicious actor.
 // Tangent about why unsafe models are bad?
 // 
@@ -69,7 +73,7 @@ We also report on the performance AI exhibited in this event and compare it to h
 In collaboration with Hack The Box we organized an "AI vs Humans CTF" event#footnote[AI vs Humans CTF event page: https://ctf.hackthebox.com/event/details/ai-vs-human-ctf-challenge-2000
 ].
 
-In our pilot event we wanted to make it as easy as possible for the AI teams to compete. Hence, the event focused on Crypto and Reversing challenge categories because these categories were the easiest to build a harness for. They only require running commands in the terminal, without the need for dynamic interactions with external machine. 
+For the pilot event, we wanted to make it as easy as possible for the AI teams to compete. Hence, the event focused on Crypto and Reversing challenge categories because these were the easiest to build a harness for. They only require running commands in the terminal, without the need for dynamic interactions with external machine. 
 
 == Absolute standings
 // 152 human teams  +6 ai teams
@@ -88,7 +92,7 @@ You can see the final AI teams standings in @ai_vs_hum_standings.
     [*Leaderboard rank* #footnote[In case of teams solving an equal number of challenges, the faster teams rank higher on the leaderboard]],
     ..csv("tables/ai_team_standings_AI_vs_Humans_CTF.csv").flatten().slice(3),
   ),
-  caption: [AI teams standings #footnote[The full leaderboard, including human teams, is available at https://ctftime.org/event/2723]. Best AI team achieves top-13% performance among teams that solved at least 1 challenge.],
+  caption: [AI teams standings #footnote[The full leaderboard, including human teams, is available at https://ctftime.org/event/2723]. Best AI team achieved top-13% performance among teams that solved at least 1 challenge.],
 ) <ai_vs_hum_standings>
 
 // As this was our first challenge, we saturated ><
@@ -97,14 +101,14 @@ You can see the final AI teams standings in @ai_vs_hum_standings.
 
 One of the core advantages AIs hold over humans is speed.
 
-If we look at @ai_vs_hum_progression, we can see how quickly teams solved the challenges. AI teams seem to be on par with top human teams in speed.
+If we look at @ai_vs_hum_progression, we can see how quickly teams solved the challenges. AI teams were on par with top human teams in speed.
 
 #figure(
   image("plots/team_progression_AI_vs_Humans_CTF_aligned.png", width: 100%),
   caption: "Number of challenges solved over time",
 ) <ai_vs_hum_progression> #tododmv[Do we need the median line?]#todoap[Two similar lines may paint a cleaner picture on first look than a bunch of different lines. Is that helpful?]
 
-The incredible speed of top human teams surprised us, so we reached out to the 5 top human teams for a comment. They say they are able to crack CTFs so fast, because they are professional CTF players and know all the common techniques to solve them. One participant told us that he was "playing on a couple internationally-ranked teams with years of experience". 
+The incredible speed of top human teams surprised us, so we reached out to the 5 top human teams for comments. According to the participants, they were able to crack CTFs so fast, because they are professional CTF players and know all the common techniques to solve them. One participant told us that he was "playing on a couple of internationally-ranked teams with years of experience". 
 
 // TODO: add appendix showcasing "average human team speed" to highlight the exceptionalism of the top teams
 
@@ -183,7 +187,7 @@ Modern AIs are known to struggle with tasks that require staying coherent on lon
 
 To estimate the human expert effort equivalent to current AI capabilities we follow #cite(<measuring-ai-ability-to-complete-long-tasks>) by measuring the 50%-task-completion time horizon. This is the time humans typically take to complete tasks that AI models can complete with 50% success rate.
 
-Analyzing the data from CyberApocalypse we reach a similar picture - AI can solve challenges requiring \~1 hour of effort from a median participant. See @equivalent_human_effort[Appendix] for details.
+Analyzing the data from CyberApocalypse we reach a similar outcome - AI can solve challenges requiring \~1 hour of effort from a median participant. See @equivalent_human_effort[Appendix] for details.
 
 #figure(
   image("plots/is_ai_solved_vs_median_human_time_regression_CyberApocalypse.png", width: 100%),
@@ -203,7 +207,7 @@ Analyzing the data from CyberApocalypse we reach a similar picture - AI can solv
 == Cyber may be underelicited
 
 // (can be lucky, can be unlucky - > need a bounty market) ("cyber maybe  underelicited". history -> some examples, taking them into account, we think that bounty market is good)
-Currently cyber evaluations of frontier models are usually done by a small internal evaluation team. #todoap[Are there external evaluations in any of fromtier labs? How much are you confident about this actually being true?]
+Typically, cyber evaluations of frontier models are done by a small internal evaluation teams within AI labs. #todoap[Are there external evaluations in any of fromtier labs? How much are you confident about this actually being true?]
 
 Cyber evaluatoins made by a single team sometimes may be underelicited.
 
@@ -248,7 +252,7 @@ CAI though did better than us.
 
 = Conclusion
 
-We want to have real time or better avaerness of AI cyber capabilities
+We want to have real time or better awareness of AI cyber capabilities
 // hard to trust a specific small team, as it is unreliable.
 1. Policy-relevant grounding 
 2. Cost-efficiency + robustness
@@ -336,3 +340,4 @@ TODO
 // = Correcting for player number
 
 // Naive multiplication is bad - it overestimates a lot. Pls do the correct way by calculating time to solve 
+
