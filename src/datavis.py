@@ -391,7 +391,7 @@ def plot_team_progression(
     # plt.xscale("log")
     plt.xlim(0, x_lim)
     plt.xticks(range(0, x_lim, 3600), [f"{t // 3600}h" for t in range(0, x_lim, 3600)])
-    plt.xlabel("Seconds since start" if not aligned else "Seconds since first solve")
+    plt.xlabel("Time since start" if not aligned else "Time since first solve")
     plt.ylabel("Challenges solved")
     # plt.yticks(range(2, 21, 2))
     plt.title(
@@ -487,7 +487,7 @@ def plot_team_progression_highlight_first(event: Event, aligned=False):
 
     # plt.xscale("log")
     plt.xlim(0, 10000)
-    plt.xlabel("Seconds since start" if not aligned else "Seconds since first flag")
+    plt.xlabel("Time since start" if not aligned else "Time since first solve")
     plt.ylabel("Flags owned")
     plt.title(
         f"{event.event_name} - Top Teams Score Progression"

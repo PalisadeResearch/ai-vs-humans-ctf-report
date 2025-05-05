@@ -209,7 +209,7 @@ Cyber evaluatoins made by a single team sometimes may be underelicited.
 
 Here are some anecdotal evidence for this:
 - Deepmind reported #cite(<phuongEvaluatingFrontierModels2024>) 30% (24/81) score on the Intercode-CTF cyber benchmark #cite(<yang2023language>), which is lower than its baseline of 40% (40/100). This may have happened because their models were weaker, or because of insufficient elicitation. // TODO: check if their paper mentions agent design
-- Project Naptime #cite(<projectzeroProjectNaptimeEvaluating2024>) pointed out the elicitation deficiencies in Meta's CyberSecEval 2 #cite(<bhatt2024cyberseceval2widerangingcybersecurity>), bumping score from 0.05 to 1.0 on the "Buffer Overflow" tests and from 0.24 to 0.76 on the "Advanced Memory Corruption" tests. They achieve it by modifying the agent harness in simple ways (like, providing LLM with access to proper tools and WAY 2).
+- Project Naptime #cite(<projectzeroProjectNaptimeEvaluating2024>) pointed out the elicitation deficiencies in Meta's CyberSecEval 2 #cite(<bhatt2024cyberseceval2widerangingcybersecurity>), bumping score from 0.05 to 1.0 on the "Buffer Overflow" tests and from 0.24 to 0.76 on the "Advanced Memory Corruption" tests. They achieve it by modifying the agent harness in simple ways (like, providing LLM with access to proper tools and WAY 2). // EXTRATODO
 - Similarly, we managed to get SOTA on a Intercode-CTF by being careful with agent design #cite(<turtayev2024hackingctfsplainagents>), surpassing previously reported results. // This seems confusing for a 3rd party reader
 
 We believe, crowdsourcing elicitation will increase evaluation robustness, because it reduces reliance on any specific team.
