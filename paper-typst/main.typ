@@ -1,5 +1,5 @@
 #import "@preview/drafting:0.2.1": margin-note, set-page-properties
-// test
+
 #set text(size: 10pt)
 
 // Comments made by Dmitrii
@@ -26,7 +26,7 @@
   #block(width: 80%, [
     #align(left)[
       == v1
-      AI capability evaluations often suffer from underelicitation. Evaluations of harmful capabilities, like cyber, exhibit this even more: frontier AI labs are not incentivized to put effort into proving their models dangerous, while safety organizations often lack the necessary resources to pit much effort into agent design //DISCUSS
+      #strike[AI capability evaluations often suffer from underelicitation. Evaluations of harmful capabilities, like cyber, exhibit this even more: frontier AI labs are not incentivized to put effort into proving their models dangerous, while safety organizations often lack the necessary resources to pit much effort into agent design] #todoap[we must be gentler and more polite here and everywhere. + We are not sure about evals being underelicited for sure. We suspect it is that way, but nothing more.]
 
       Additionally, classic benchmarks often lack the intuition of how its score translates to the equivalent human expertise.
 
@@ -50,30 +50,33 @@
 
 = Introduction
 
-Eliciting AI capabilities is hard and costly. Yet accurately estimating them is important, especially when it comes to dangerous capabilities, as it determines whether a model is safe to release. 
+Eliciting AI capabilities is hard. Yet accurately estimating them is important, especially when it comes to dangerous  capabilities, as it determines whether a model is safe to release. 
 //Regulators and frontier AI Labs need to know if the model has capabilities to inflict substantial damage in the hands of a motivated malicious actor.
 // Tangent about why unsafe models are bad?
 // 
 //  Performance of an AI agent depends a lot on its harness.
 // 
-Cyber is one of such capabilities.
+#strike[Cyber is one of such capabilities.] We hypothesize that evaluations of offensive cyber capabilities may often be underelicited - that is, they may fail to fully reveal the system’s potential, as we discuss in @discussion.
 
-Cyber evaluations may be underelicited, as we discuss in @discussion.
 // Allude to discussion?
 
 // Crowdsourcing is a tool used to bring in external expertise. Prominent examples of crowd sourcing are Kaggle challenges and hackathons.
 
-In this paper we explore crowdsourcing elicitation efforts as a strategy to boost cyber performance and close the evals gap #cite(<apollo-research-evals-gap>). To do that, we host a CTF competition, inviting AI developers to compete against humans and each other for a 7500\$ prize pool.
+We propose crowdsourcing elicitation efforts as an effective strategy to boost cyber performance and close the evals gap #cite(<apollo-research-evals-gap>). To explore this novel approach, we hosted a first-of-a-kind Capture The Flag (CTF) competition, inviting AI developers to compete against each other and human teams. We additionally analyzed AI performance in CyberApocalypse - a large CTF competition with thousands of participants. 
 
-// TODO: add section about "what is ctf"
-We also report on the performance AI exhibited in this event and compare it to human performance. Finally, we analyze AI performance on CyberApocalypse - a large CTF competition with thousands of participants.
+In this paper, we report on the performance AI exhibited in these events and compare it to human performance.    
+
+//MT: shortly summarize the findings? 
+// TODO: add section about "what is ctf"  - can it go to the next session?
+
+
 
 = AI vs Humans CTF
 
-In collaboration with Hack The Box we organized an "AI vs Humans CTF" event#footnote[AI vs Humans CTF event page: https://ctf.hackthebox.com/event/details/ai-vs-human-ctf-challenge-2000
-].
+To explore crowdsourcing as an elicitation approach in practice, we organized "AI vs Humans CTF" competition. The event was organized in collaboration with Hack The Box in the period of 14-16 March 2025.#footnote[AI vs Humans CTF event page: https://ctf.hackthebox.com/event/details/ai-vs-human-ctf-challenge-2000 
+] We offered a monetary prize of 7500\$ to incentivize participation and effort. 
 
-For the pilot event, we wanted to make it as easy as possible for the AI teams to compete. Hence, the event focused on Crypto and Reversing challenge categories because these were the easiest to build a harness for. They only require running commands in the terminal, without the need for dynamic interactions with external machine. 
+For the pilot event, we wanted to make it as easy as possible for the AI teams to compete. The event focused on challenges in the Crypto and Reversing categories, as these areas were the easiest to build a harness for. These challenges only required running commands in the terminal, without the need for dynamic interactions with external machine. #todomt[not sure all policymakers know that the terminal and harness are?]#todoap[Great catch. I believe this manuscript aims to be useful to a more technical-minded audience. The actual policymakers should be spoon-fed the summary of relevant points.]  
 
 == Absolute standings
 // 152 human teams  +6 ai teams
@@ -81,7 +84,7 @@ Overall 403 teams registered for the event, of which only 158 solved at least 1 
 
 Palisade ran 2 agents during this event - our adaptation of Claude Code for CTFs and our in-house React&Plan agent design #cite(<turtayev2024hackingctfsplainagents>).
 
-You can see the final AI teams standings in @ai_vs_hum_standings.
+You can see the final AI teams standings in @ai_vs_hum_standings. 
 
 #figure(
   table(
@@ -108,7 +111,7 @@ If we look at @ai_vs_hum_progression, we can see how quickly teams solved the ch
   caption: "Number of challenges solved over time",
 ) <ai_vs_hum_progression> #tododmv[Do we need the median line?]#todoap[Two similar lines may paint a cleaner picture on first look than a bunch of different lines. Is that helpful?]
 
-The incredible speed of top human teams surprised us, so we reached out to the 5 top human teams for comments. According to the participants, they were able to crack CTFs so fast, because they are professional CTF players and know all the common techniques to solve them. One participant told us that he was "playing on a couple of internationally-ranked teams with years of experience". 
+The exceptional speed of human teams surprised us, so we reached out to the 5 top human teams for comments. According to the participants, they were able to crack the challenges so fast, because they are professional CTF players and are familiar with all the common techniques to solve them. One participant, for example, shared that he was "playing on a couple of internationally-ranked teams with years of experience". 
 
 // TODO: add appendix showcasing "average human team speed" to highlight the exceptionalism of the top teams
 
@@ -117,21 +120,21 @@ The incredible speed of top human teams surprised us, so we reached out to the 5
 
 // Should this be an appendix?
 
-After the competition concluded, we reached out to AI teams for comments on their agent design.
+We also followed up with participating AI teams for comments on their agent design.
 
-Here are some of the agent designs used by AI teams:
+Below are some of the agent designs used by AI teams.
 
 *CAI*:
 
 The best performing team. They have a custom harness design they spent about 500 dev-hours on. You can read about it in their paper. #cite(<mayoralvilches2025caiopenbugbountyready>)
 
-*Palisade Claude Code*
+*Palisade Claude Code*:
 
 We adapted Claude Code for solving CTFs by writing a simple initial prompt.
 
 Our claude code ( + Imperturbable enigma + claude code) // TODO: add their solve rate to appendix
 
-*imperturbable*
+*imperturbable*:
 
 From the participant:
 
@@ -148,16 +151,16 @@ Here is the spreadsheet I used to track my progress
 https://docs.google.com/spreadsheets/d/1sdMC2AFwZ131vNG-iHyiDL0j2nyqa3gV5fN234QkXxk/edit?usp=sharing
 ```
 
-*Palisade React&Plan*
+*Palisade React&Plan*:
 
-Our agent we designed while working on @turtayev2024hackingctfsplainagents
+The agent our team designed while working on @turtayev2024hackingctfsplainagents
 
 
-= Cyber Apocalypse
+= Cyber Apocalypse  
 
 Cyber Apocalypse is an annual CTF competition, organized by Hack The Box. Two AI teams participated in this event. Overall, 3994 human teams #tododmv[count humans rather than teams]#todoap[what do you mean by that?] solved at least one challenge.
 
-You can see the final AI standings in table @ca_standings.
+You can see the final AI standings in @ca_standings.
 
 Palisade's submissions performed poorly, because our harness was not designed to interact with external machines, while about 2/3 of challenges required it.
 
@@ -196,18 +199,15 @@ Analyzing the data from CyberApocalypse we reach a similar outcome - AI can solv
 
 //TODO: get a real difficulties visual/table and percentage solved by AI.
 
-
 // Hack The Box determines challenge difficulty by how long it takes a median human to solve it. However, 
 // You can see the relation between
-
-
 
 = Discussion <discussion>
 
 == Cyber may be underelicited
 
 // (can be lucky, can be unlucky - > need a bounty market) ("cyber maybe  underelicited". history -> some examples, taking them into account, we think that bounty market is good)
-Typically, cyber evaluations of frontier models are done by a small internal evaluation teams within AI labs. #todoap[Are there external evaluations in any of fromtier labs? How much are you confident about this actually being true?]
+Typically, cyber evaluations of frontier models are done by a small internal evaluation teams within AI labs. #todoap[Are there external evaluations in any of frontier labs? How much are you confident about this actually being true?]
 
 Cyber evaluatoins made by a single team sometimes may be underelicited.
 
@@ -341,3 +341,5 @@ TODO
 
 // Naive multiplication is bad - it overestimates a lot. Pls do the correct way by calculating time to solve 
 
+
+= Challenges solved by AI per category and difficulty
