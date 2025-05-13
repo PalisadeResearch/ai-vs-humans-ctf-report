@@ -21,6 +21,9 @@
 
   2025-04-25
   
+  //TODO: 
+  // - reference the repo with data. "we release all data and source code for this paper at this link: link"
+  
   = Abstract
 
   #block(width: 80%)
@@ -45,6 +48,16 @@
 
       
       *v3 *
+
+      Abstract
+
+As AI systems become increasingly capable, understanding their offensive potential is critical for informed governance and responsible deployment. In this paper, we explore Capture The Flag (CTF) competitions as a method for eliciting and evaluating offensive AI capabilities. We report results from the first-of-its-kind open “AI vs. Humans” CTF competition, alongside an AI track in CyberApocalypse, an annial CTF event with thousands of participants. We argue that crowdsourcing offers a cost-effective and scalable alternative to lab-based evaluation.
+
+Notably, our initial challenge design — based on internal benchmarking — was easily saturated by AI teams, revealing a gap in what small-scale, closed evaluations can surface. This highlights the value of public competition formats in exposing capabilities that might otherwise be overlooked, particularly when assessing whether models are safe to release. // Move this to the text body
+
+AI systems in our study performed competitively, with top teams completing 19 out of 20 challenges and ranking in the top 13% overall, while being as fast as top human teams. We also adapted METR’s 50%-task-completion time horizon metric for cyber capabilities, which allow us to report that AI agents are able to solve cyber challenges that require one hour or less of effort from a median human participant. 
+
+While results remain preliminary, this work shows that public, #strike[human-grounded evaluations can surface underelicited capabilities], help bridge the gap between technical assessments and policy-relevant oversight, and offer a way to keep pace with the rapid evolution of AI systems. #todoap["maybe add: why care about human-grounded? Because sounds more legible to policymakers and laypeople"]
 
     ]  
 
@@ -89,19 +102,21 @@ For the pilot event, we wanted to make it as easy as possible for the AI teams t
 Overall 403 teams registered for the event, of which only 158 solved at least 1 challenge - 152 human teams and 6 AI teams. 
 
 Palisade ran 2 AI agents during this event - our adaptation of Claude Code for CTFs and our in-house React&Plan agent design #cite(<turtayev2024hackingctfsplainagents>). 
-
- Best AI team achieves top-13% performance among teams that solved at least 1 challenge#todomt[maybe a bit of discussion here on what does this result mean? what might be the implications?]. You can see the final AI teams standings in @ai_vs_hum_standings.
+ 
+ Notably, four AI teams significantly exceeded our initial expectations and the challenges were quickly saturated. Best AI team achieves top-13% performance among teams that solved at least 1 challenge. Four out of seven agents completed 19 out of 20 challenges. You can see the final AI teams standings in @ai_vs_hum_standings.
+ 
+ Our expectations had been based on preliminary benchmark evaluations of our state-of-the-art agent on older Hack The Box-style tasks #cite(<turtayev2024hackingctfsplainagents>). The challenge difficulty was calibrated based on these prior results. This outcome may suggest that conventional evaluation methods by small teams (like ours) may fail to fully surface the capabilities of current AI models, highlighting the need for more dynamic and diversified approaches.
 
 #figure(
   table(
     columns: 3,
     align: (left, center, center),
-    [*Team*], 
+    [*Agent*], 
     [*Challenges solved*], 
     [*Leaderboard rank* #footnote[In case of teams solving an equal number of challenges, the faster teams rank higher on the leaderboard]],
     ..csv("tables/ai_team_standings_AI_vs_Humans_CTF.csv").flatten().slice(3),
   ),
-  caption: [AI teams standings.  #footnote[The full leaderboard, including human teams, is available at https://ctftime.org/event/2723]],
+  caption: [AI agents standings.  #footnote[The full leaderboard, including human teams, is available at https://ctftime.org/event/2723]],
 ) <ai_vs_hum_standings>
 
 // As this was our first challenge, we saturated ><
@@ -197,7 +212,7 @@ We believe, crowdsourcing elicitation will increase evaluation robustness, becau
 // Alternative text: Frontier AI models may be under-elicited in their offensive cyber capabilities. 
 // Previous research, including our own, has shown that LLMs are better at cybersecurity problems than previously thought. In our recent study #cite(<turtayev2024hackingctfsplainagents>), using some straightforward prompting and agent design strategies, we were able to achieve state-of-the-art performance on a popular offensive security benchmark, InterCode-CTF, with a 95% success rate — surpassing previously reported results#todomt[citation missing? is it (Abramovich et al. 2024)?].
 //This finding builds on a broader pattern of evidence suggesting that cyber evaluations often fail to fully activate the capabilities of advanced models. For instance, DeepMind’s report on the model’s hacking capabilities #cite(<phuongEvaluatingFrontierModels2024>) showed Gemini-1.0 solved 24 out of 81 InterCode-CTF tasks, which is lower than the benchmark's baseline of 40% (40/100)#cite(<yang2023language>). This may have happened because their models were weaker, or because of insufficient elicitation. 
-//Earlier, Project Naptime#cite(<projectzeroProjectNaptimeEvaluating2024>) pointed out the elicitation deficiencies in Meta's CyberSecEval 2 #cite(<bhatt2024cyberseceval2widerangingcybersecurity>). By modifying the agent harness in relatively simple ways, the Project Naptime's team was able to boost the CyberSecEval 2 benchmark performance by up to 20x from Meta’s reported results - from 0.05 to 1.0 on the "Buffer Overflow" tests and from 0.24 to 0.76 on the "Advanced Memory Corruption" tests.
+//Project Naptime#cite(<projectzeroProjectNaptimeEvaluating2024>) pointed out the elicitation deficiencies in Meta's CyberSecEval 2 #cite(<bhatt2024cyberseceval2widerangingcybersecurity>). By modifying the agent harness in relatively simple ways, the Project Naptime's team was able to boost the CyberSecEval 2 benchmark performance by up to 20x from Meta’s reported results - from 0.05 to 1.0 on the "Buffer Overflow" tests and from 0.24 to 0.76 on the "Advanced Memory Corruption" tests.
 //These examples, including our own research, point to a consistent theme: minor changes in harness design can unlock significantly better performance than reported by frontier AI models' internal evaluation teams. To improve robustness and realism in AI cybersecurity evaluations, the field may benefit from crowdsourcing elicitation strategies, reducing reliance on any single team’s assumptions.
      
 
@@ -235,41 +250,48 @@ CAI though did better than us. // not sure what this sentence is?
 
 = Conclusion
 
-We want to have real time or better awareness of AI cyber capabilities
-// hard to trust a specific small team, as it is unreliable.
-1. Policy-relevant grounding #todomt[not clear how]#todoap[By directly comparing against humans vs comparing against numbers on a benchmark]
-2. Cost-efficiency + robustness
+// We want to have real time or better awareness of AI cyber capabilities
+// // hard to trust a specific small team, as it is unreliable.
+// 1. Policy-relevant grounding #todomt[not clear how]#todoap[By directly comparing against humans vs comparing against numbers on a benchmark]
+// 2. Cost-efficiency + robustness
 
-Bounties solve these 2.
+// Bounties solve these 2.
 
-Call to action for grantmakers:
-Moreover, CTFs are already happening - all we need is bounty money for AI track. If having an AI track that becomes popular default - no more grants needed.
+// Call to action for grantmakers:
+// Moreover, CTFs are already happening - all we need is bounty money for AI track. If having an AI track that becomes popular default - no more grants needed.
 
-Call to action for frontier labs:
-Way better to know in realtime than to not know. Faster decision making for better safety.
+// Call to action for frontier labs:
+// Way better to know in realtime than to not know. Faster decision making for better safety.
 
-Call to action for CTFs:
-Consider AI track, for hype and attracting best experts (asks us for help - we have experience)
+// Call to action for CTFs:
+// Consider AI track, for hype and attracting best experts (asks us for help - we have experience)
 
-// Call to action for cyberProfessionals:
-// Consider AI copilots  // Leave this as blank for dima
+// // Call to action for cyberProfessionals:
+// // Consider AI copilots  // Leave this as blank for dima
 
-* Our main Results:* 
-- AI achieved 1 hour time horizon on cyber (and having humans to measure this against is cool)
-- Signs of crowdsourcing working, but results inconclusive
-- AI outperformed our expectations based on initial evaluations. (saturated) #todomt[we discussed that this might be moved somewhere to the body?]#todoap[feel free to add this to abstract, the initial expectations were based on the evals of our SOTA-achieving agent on old tasks from HTB before running the competition. The difficulty of challenges we selected was partially based on this initial evals]
-- Elicitation bounty suggested (seems like a good idea) (we tried, you should too) (we think it can be cost effective) (handwave it. 20k per month vs US salary to discussion + make a handwave table) (DARPA does similar AIxCC challenge, but with different purpose #footnote[See https://aicyberchallenge.com])
+// * Our main Results:* 
+// - AI achieved 1 hour time horizon on cyber (and having humans to measure this against is cool)
+// - Signs of crowdsourcing working, but results inconclusive
+// - AI outperformed our expectations based on initial evaluations. (saturated) #todomt[we discussed that this might be moved somewhere to the body?]#todoap[feel free to add this to abstract, the initial expectations were based on the evals of our SOTA-achieving agent on old tasks from HTB before running the competition. The difficulty of challenges we selected was partially based on this initial evals]
+// - Elicitation bounty suggested (seems like a good idea) (we tried, you should too) (we think it can be cost effective) (handwave it. 20k per month vs US salary to discussion + make a handwave table) (DARPA does similar AIxCC challenge, but with different purpose #footnote[See https://aicyberchallenge.com])
 
-- time horizon (Metr suggested for R&D, we did for Cyber)
+// - time horizon (Metr suggested for R&D, we did for Cyber)
 
-- AI top-13% scores (now this is *grounded* -> hence legible for policymakers (competition with humans is more legible than benchmarks in general. Hence doing it this way is better for policymaker awareness)(more comprehensive than cybench?))
+// - AI top-13% scores (now this is *grounded* -> hence legible for policymakers (competition with humans is more legible than benchmarks in general. Hence doing it this way is better for policymaker awareness)(more comprehensive than cybench?))
 
-// Draft conclusion: 
-//Accurately assessing the real-time offensive capabilities of AI systems remains a major challenge for policymakers and researchers. Relying on closed evaluations by small internal teams at frontier AI labs is insufficient — such assessments can lack transparency and are challenging for independent verification, making it difficult to build a shared understanding of current risks or make informed decisions about governance and safety. #todoap[we need to be more polite ]
-//Our work explores crowdsourcing elicitation efforts as a practical and scalable alternative. By running AI agents alongside human participants in two Capture The Flag (CTF) competitions. We demonstrate that this approach can address two important needs: 
-//1. Grounding AI capabilities in policy-relevant terms by benchmarking against human performance, rather than opaque technical metrics.
-//2. Enabling scalable, cost-efficient evaluation than closed testing environments through open competitions and public challenges.
-//
+Accurately assessing the offensive capabilities of AI systems remains a major challenge for policymakers and researchers. Relying solely on evaluations conducted by internal teams at frontier AI labs is insufficient. To better understand the highly dynamic nature of AI capabilities, we need a more diverse and robust evaluation approach grounded in real-world, real-time testing.
+Toward this goal, we hosted a first-of-its-kind “AI vs. Humans” CTF competition #footnote[The only other similar competition we know of was held as part of DARPA’s AI Cyber Challenge (AIxCC), it had a different focus on advancing AI for cyber defense. See: https://aicyberchallenge.com], inviting AI developers to directly compete against each other and against human teams. We also analyzed AI performance in CyberApocalypse, a large CTF with thousands of participants.
+While our results are still preliminary, our initial experiments suggest that using CTF competitions to elicit offensive AI capabilities holds significant promise in several directions. 
+Firstly, the crowdsourcing approach demonstrated potential for surfacing meaningful behaviors in AI systems in practical settings, exceeding our initial expectations of AI capabilities. In the “AI vs. Humans” CTF competition, our top-performing AI team ranked in the top 13% of all participants, with several AI teams solving 19 out of 20 challenges—effectively saturating the task set. This outcome not only highlights current system capabilities but also demonstrates the value #todoap[what is this value?] of evaluating AI in direct competition with humans. However, further data and repeated trials are needed to fully assess its reliability and generalizability. 
+To further contextualize AI performance, we adopted the 50%-task-completion time horizon metric proposed by METR (2025). We found that AI agents were able to solve cyber tasks requiring up to one hour of effort from a median human CTF participant. This measure, adapted here for evaluating offensive capabilities, provides a more interpretable and policy-relevant signal than aggregate benchmark scores.
+Moreover, we suggest that CTFs for AI elicitation is both cost-effective and practical, particularly for organizations operating with limited resources. We believe this mechanism can be easily replicated and scaled across future evaluations.
+Our findings suggest several ways in which crowdsourcing can offer practical value for different stakeholders: 
+- For cybersecurity professionals: *DIMA TODO*
+For policy and R&D agencies: CTFs already provide the infrastructure — what is missing is targeted support for AI-focused tracks. Modest funding for prizes and coordination could establish a sustainable evaluation ecosystem. Once popularized, these tracks may require little or no ongoing funding. 
+For frontier AI labs: Public evaluations offer a fast, low-cost way to uncover overlooked capabilities and validate internal assessments. Engaging in open competitions can improve safety decision-making by revealing how systems behave under diverse, adversarial conditions.
+For CTF Organizers: Adding an AI track can increase visibility, attract high-caliber participants, and introduce new research and media interest. Our team has experience supporting these efforts and is available to assist with design and execution. 
+As AI systems grow in complexity, evaluation must keep pace. Moreover, evaluation methods should be clear enough to guide policy, and flexible enough to reveal what today’s systems can actually do.  This research is our initial contribution toward that goal.
+
 
 = Acknowledgements
 
