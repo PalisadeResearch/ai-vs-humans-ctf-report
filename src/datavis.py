@@ -398,11 +398,11 @@ def plot_team_progression(
     )
     plt.ylabel("Challenges solved", fontsize=FONT_SIZE)
     # plt.yticks(range(2, 21, 2))
-    plt.title(
-        "Top Teams Score Progression"
-        if not aligned
-        else "Team Score Progression After First Solvek"
-    )
+    # plt.title(
+    #     "Top Teams Score Progression"
+    #     if not aligned
+    #     else "Team Score Progression After First Solve"
+    # )
     plt.legend(loc="lower right", fontsize=FONT_SIZE)
     plt.tight_layout()
     plt.savefig(
