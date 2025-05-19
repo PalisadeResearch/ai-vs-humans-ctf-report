@@ -111,7 +111,7 @@ _Palisade Research_ team ran 2 AI agents during this event - our adaptation of C
 One of the core advantages AIs typically hold over humans is speed. As shown in @ai_vs_hum_progression, AI teams performed on par with top human teams in both speed across almost all tasks.
 // Todo: praise AI speed for reaching human performance
 #figure(
-  image("plots/team_progression_AI_vs_Humans_CTF_aligned.png", width: 100%),
+  image("plots/team_progression_AI_vs_Humans_CTF_aligned.svg", width: 100%),
   caption: "Number of challenges solved over time",
 ) <ai_vs_hum_progression> #tododmv[Do we need the median line?]#todoap[Two similar lines may paint a cleaner picture on first look than a bunch of different lines. Is that helpful?]
 
@@ -146,7 +146,7 @@ As this competition was less saturated with AI participation, the resulting data
 ) <ca_standings>
 
 #figure(
-  image("plots/team_progression_CyberApocalypse_aligned.png", width: 100%),
+  image("plots/team_progression_CyberApocalypse_aligned.svg", width: 100%),
   caption: "Number of challenges solved over time",
 ) <ca_progression>
 
@@ -161,7 +161,7 @@ To estimate the human expert effort equivalent to current AI capabilities, we fo
 Analyzing the data from _Cyber Apocalypse_ we reach a similar outcome - AI can solve challenges requiring \~1 hour of effort from a median participant. See @equivalent_human_effort[Appendix] for details.
 
 #figure(
-  image("plots/is_ai_solved_vs_median_human_time_regression_CyberApocalypse.png", width: 100%),
+  image("plots/is_ai_solved_vs_median_human_time_regression_CyberApocalypse.svg", width: 100%),
   caption: "50%-task-completion time horizon calculation based on _Cyber Apocalypse_ data",
 ) <average_solve_time> 
 
@@ -359,7 +359,7 @@ TODO
 
 
 #figure(
-  image("plots/is_ai_solved_vs_median_human_time_regression_CyberApocalypse_detailed.png"),
+  image("plots/is_ai_solved_vs_median_human_time_regression_CyberApocalypse_detailed.svg"),
   caption: "50%-task-completion time horizon estimates we get, depending on which percentage of top human teams we consider experts for getting the human solve times. Data is from the _Cyber Apocalypse_ event.",
 ) <ca_time_horizon_detailed>
 
@@ -368,7 +368,7 @@ TODO
 // = Challenge difficulties
 
 // #figure(
-//   image("plots/challenge_solve_times_AI_vs_Humans_CTF.png"),
+//   image("plots/challenge_solve_times_AI_vs_Humans_CTF.svg"),
 //   caption: "Human participants solve times distributions for challenges ",
 //   placement: auto,
 // )
@@ -383,6 +383,6 @@ TODO
 = Team scores in real time
 
 #figure(
-  image("plots/team_progression_AI_vs_Humans_CTF_unaligned.png", width: 100%),
+  image("plots/team_progression_AI_vs_Humans_CTF_unaligned.svg", width: 100%),
   caption: "Number of challenges solved over time",
 ) <ai_vs_hum_progression_real_time> // TODO drop medians here

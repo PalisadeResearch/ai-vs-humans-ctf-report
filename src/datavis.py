@@ -126,7 +126,7 @@ def plot_challenge_stats(event: Event, outlier_threshold=60 * 60 * 6):
     plt.tight_layout()
     plt.savefig(
         repo_root
-        / f"paper-typst/plots/challenge_solve_times_{event.event_name_no_spaces}.png"
+        / f"paper-typst/plots/challenge_solve_times_{event.event_name_no_spaces}.svg"
     )
     plt.show()
 
@@ -236,7 +236,7 @@ def plot_histograms(
     plt.savefig(
         repo_root / "paper-typst/plots/challenge_solve_times_histograms_"
         f"{event.event_name_no_spaces}_"
-        f"{team_selection}.png"
+        f"{team_selection}.svg"
     )
     plt.show()
 
@@ -300,11 +300,11 @@ def plot_team_progression(
     plot_medians=False,
     x_lim=10000,
     player_normalized=False,
+    background_alpha=0.2,
 ):
     plt.figure(figsize=(15, 8))
     plt.grid(True, alpha=0.3)
 
-    background_alpha = 0.2
     # Plot individual team lines
     for team in event.top_ai_teams:
         times, scores = get_team_score_progression(event, team, aligned=aligned)
@@ -389,23 +389,27 @@ def plot_team_progression(
         )
 
     # plt.xscale("log")
+    FONT_SIZE = 18
     plt.xlim(0, x_lim)
     plt.xticks(range(0, x_lim, 3600), [f"{t // 3600}h" for t in range(0, x_lim, 3600)])
-    plt.xlabel("Time since start" if not aligned else "Time since first solve")
-    plt.ylabel("Challenges solved")
+    plt.xlabel(
+        "Time since start" if not aligned else "Time since first solve",
+        fontsize=FONT_SIZE,
+    )
+    plt.ylabel("Challenges solved", fontsize=FONT_SIZE)
     # plt.yticks(range(2, 21, 2))
     plt.title(
         "Top Teams Score Progression"
         if not aligned
-        else "Team Score Progression After First Solve"
+        else "Team Score Progression After First Solvek"
     )
-    plt.legend(loc="lower right", fontsize=18)
+    plt.legend(loc="lower right", fontsize=FONT_SIZE)
     plt.tight_layout()
     plt.savefig(
         repo_root / f"paper-typst/plots/team_progression_{event.event_name_no_spaces}_"
         f"{'aligned' if aligned else 'unaligned'}"
         f"{'_normalized' if player_normalized else ''}"
-        ".png"
+        ".svg"
     )
     plt.show()
 
@@ -414,7 +418,8 @@ def plot_team_progression(
 plot_team_progression(
     event=ai_vs_hum_event,
     aligned=False,
-    plot_medians=True,
+    plot_medians=False,
+    background_alpha=0.8,
 )
 
 plot_team_progression(

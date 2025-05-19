@@ -130,7 +130,7 @@ def plot_is_ai_solved_vs_median_human_time(
         repo_root / f"paper-typst/plots/is_ai_solved_vs_median_human_time_"
         f"{event.event_name_no_spaces}"
         f"{'_detailed' if select_n_fastest_humans != [None] else ''}"
-        f".png"
+        f".svg"
     )
     plt.show()
 
@@ -351,7 +351,7 @@ def plot_is_ai_solved_vs_median_human_time_regression(
         repo_root / f"paper-typst/plots/is_ai_solved_vs_median_human_time_regression_"
         f"{event.event_name_no_spaces}"
         f"{'_detailed' if len(select_n_fastest_humans) > 1 else ''}"
-        f".png"
+        f".svg"
     )
     plt.show()
 

@@ -16,12 +16,12 @@ build .venv: uv_sync
 # build paper-typst/hello.svg: figure src/hello.py | .venv
 
 build $
-  paper-typst/plots/team_progression_AI_vs_Humans_CTF_aligned.png $
-  paper-typst/plots/team_progression_AI_vs_Humans_CTF_aligned_normalized.png $
-  paper-typst/plots/team_progression_CyberApocalypse_aligned.png $
-  paper-typst/plots/team_progression_CyberApocalypse_aligned_normalized.png $
-  paper-typst/plots/challenge_solve_times_AI_vs_Humans_CTF.png $
-  paper-typst/plots/is_ai_solved_vs_median_human_time_regression_CyberApocalypse_detailed.png:$
+  paper-typst/plots/team_progression_AI_vs_Humans_CTF_aligned.svg $
+  paper-typst/plots/team_progression_AI_vs_Humans_CTF_aligned_normalized.svg $
+  paper-typst/plots/team_progression_CyberApocalypse_aligned.svg $
+  paper-typst/plots/team_progression_CyberApocalypse_aligned_normalized.svg $
+  paper-typst/plots/challenge_solve_times_AI_vs_Humans_CTF.svg $
+  paper-typst/plots/is_ai_solved_vs_median_human_time_regression_CyberApocalypse_detailed.svg:$
     python_run src/datavis.py | .venv
 
 build $
@@ -32,12 +32,12 @@ build $
 build tables: phony paper-typst/tables/ai_team_standings_AI_vs_Humans_CTF.csv
 
 build figures: phony $
-  paper-typst/plots/team_progression_AI_vs_Humans_CTF_aligned.png $
-  paper-typst/plots/team_progression_AI_vs_Humans_CTF_aligned_normalized.png $
-  paper-typst/plots/team_progression_CyberApocalypse_aligned.png $
-  paper-typst/plots/team_progression_CyberApocalypse_aligned_normalized.png $
-  paper-typst/plots/challenge_solve_times_AI_vs_Humans_CTF.png $
-  paper-typst/plots/is_ai_solved_vs_median_human_time_regression_CyberApocalypse_detailed.png
+  paper-typst/plots/team_progression_AI_vs_Humans_CTF_aligned.svg $
+  paper-typst/plots/team_progression_AI_vs_Humans_CTF_aligned_normalized.svg $
+  paper-typst/plots/team_progression_CyberApocalypse_aligned.svg $
+  paper-typst/plots/team_progression_CyberApocalypse_aligned_normalized.svg $
+  paper-typst/plots/challenge_solve_times_AI_vs_Humans_CTF.svg $
+  paper-typst/plots/is_ai_solved_vs_median_human_time_regression_CyberApocalypse_detailed.svg
 
 build paper-typst/main.pdf: typst_compile paper-typst/main.typ | figures tables
 
