@@ -446,16 +446,13 @@ plot_team_progression(
     plot_medians=True,
 )
 
-plot_team_progression(
-    event=ca_event,
-    aligned=False,
-    x_lim=100000,
-)
+plot_team_progression(event=ca_event, aligned=False, x_lim=100000, ai_teams_alpha=0.5)
 
 plot_team_progression(
     event=ca_event,
     aligned=True,
     x_lim=100000,
+    ai_teams_alpha=0.5,
 )
 
 plot_team_progression(
@@ -496,13 +493,6 @@ plot_team_progression(
     x_lim=100000,
     player_normalized=True,
 )
-
-# %%
-[
-    team
-    for team in ai_vs_hum_event.ai_team_names
-    if ai_vs_hum_event.teams_data[team].total_solves > 0
-]
 
 # %%
 
