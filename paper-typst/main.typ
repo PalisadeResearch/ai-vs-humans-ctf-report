@@ -2,6 +2,9 @@
 
 #set text(size: 10pt)
 #set page(numbering: "1")
+#show figure.where(
+  kind: table
+): set figure.caption(position: top)
 
 // Comments made by Dmitrii
 #let tododmv(body) = margin-note(stroke: blue)[#text(body, size: 7pt)]
@@ -31,7 +34,7 @@
       // == v2
       // We organized a first of a kind Capture The Flag (CTF) event where AI developers and researchers competed against each other and human hackers. 6 AI teams joined in, one of which beat our best-effort approach. This shows how crowdsourcing can help with underelicitation.
       
-      // AIs ranked *top-13%* among teams that captured at least one flag, *while being as fast as top multi-person human teams*. AIs solved Crypto and Reversing challenges of the "medium" level. Our setup allows us to report first ever 50%-task-completion time horizon for cyber #tododmv[I feel confused reading this]. It is on the order of 1 hour, which is consistent with METR's estimate #cite(<measuring-ai-ability-to-complete-long-tasks>) for general AI performance.
+      // AIs ranked *top-13%* among teams that captured at least one flag, *while being as fast as top multi-person human teams*. AIs solved Crypto and Reversing challenges of the "medium" level. Our setup allows us to report first ever 50%-task-completion time horizon for cyber #tododmv[I feel confused reading this]. It is on the order of 1 hour, which is consistent with METR's estimate #cite(<kwa2025measuringaiabilitycomplete>) for general AI performance.
 
       // We also examine AI performance on another CTF event - CyberApocalypse, where it achieves top-21% score.
 
@@ -46,7 +49,7 @@ As AI systems become increasingly capable, understanding their offensive cyber p
 In this paper, we explore crowdsourcing elicitation efforts as an alternative to in-house elicitation work. We present findings from the first open _AI vs. Humans _CTF competition, where AI teams competed against each other and human hackers. To extend this evaluation, we also organized an AI track as part of _Cyber Apocalypse_, an annual CTF event with thousands of participants.
 
 // AI systems outperformed our estimates grounded in prior research and current industry benchmarks for AI capabilities. 
-Top AI teams effectively saturated our task set, completing 19 out of 20 challenges and ranking in the top 13% overall, while being as fast as best human teams. We further adapted #cite(<measuring-ai-ability-to-complete-long-tasks>) 50%-task-completion time horizon metric and found that AI agents perform as well on cyber tasks as on the general tasks evaluated in METR’s original study: they can reliably solve challenges requiring one hour or less of effort from a median human participant.
+Top AI teams effectively saturated our task set, completing 19 out of 20 challenges and ranking in the top 13% overall, while being as fast as best human teams. We further adapted METR's #cite(<kwa2025measuringaiabilitycomplete>) 50%-task-completion time horizon metric and found that AI agents perform as well on cyber tasks as on the general tasks: they can reliably solve challenges requiring one hour or less of effort from a median human participant.
 
 While further work is needed to deepen our understanding, we tentatively suggest that CTFs may offer an effective and scalable alternative to lab-based elicitations. Evaluations, grounded in the performance of human participants, also promise a more intuitive and interpretable alternative to traditional benchmark scores, enhancing accessibility to both policymakers and the general public. 
 
@@ -68,7 +71,7 @@ Eliciting AI capabilities is hard. Yet accurately estimating them is important, 
 
 // Crowdsourcing is a tool used to bring in external expertise. Prominent examples of crowd sourcing are Kaggle challenges and hackathons.
 
-We propose crowdsourcing elicitation efforts as a strategy to boost cyber performance and close the evals gap#footnote[As defined by Apollo Research, the 'evals gap' is the growing mismatch between the need for strong safety evaluations of advanced AI models and the lack of high-quality tools to assess what these models can do. See #cite(<apollo-research-evals-gap>) for a more detailed discussion.] #cite(<apollo-research-evals-gap>). To explore this novel approach, we hosted a first-of-a-kind _AI vs. Humans _Capture The Flag (CTF) competition, inviting AI developers to compete against each other and human teams. We then additionally analyzed AI performance in _Cyber Apocalypse_ - a large CTF competition with thousands of participants.  
+We propose crowdsourcing elicitation efforts as a strategy to boost cyber performance and close the evals gap#footnote[As defined by Apollo Research, the 'evals gap' is the growing mismatch between the reliance on safety evaluations for policy decisions and the ability of existing evaluations to robustly identify capabilities of existing and near-future models. See #cite(<apollo-research-evals-gap>) for a more detailed discussion.] #cite(<apollo-research-evals-gap>). To explore this novel approach, we hosted a first-of-a-kind _AI vs. Humans _Capture The Flag (CTF) competition, inviting AI developers to compete against each other and human teams. We then additionally analyzed AI performance in _Cyber Apocalypse_ - a large CTF competition with thousands of participants.  
 
 In this paper, we report on the performance AI exhibited in these events and compare it to human performance.    
 
@@ -82,19 +85,18 @@ In this paper, we report on the performance AI exhibited in these events and com
 To explore crowdsourcing as an elicitation approach in practice, we organized _AI vs. Humans_ CTF competition. CTF competitions are cybersecurity events where both professionals and enthusiasts tackle challenges in areas such as cryptography, reverse engineering, and web exploitation. Each challenge hides a “flag” — a unique string — that must be found by identifying and exploiting system vulnerabilities. 
 
 The event was organized in collaboration with _Hack The Box_ in the period of 14-16 March 2025.#footnote[AI vs Humans CTF event page: https://ctf.hackthebox.com/event/details/ai-vs-human-ctf-challenge-2000 
-] This event was the first to publicly pit fully autonomous AI agents against experienced human teams in real-time, tackling 20 cybersecurity challenges over 48 hours#todomt[thought we need a sentence where we explain what was 'first-of-a-kind' about the CTF, correct me if this is not an accurate description]. We offered a monetary prize of 7500\$ to incentivize participation and effort. 
+] This event was the first to publicly pit fully autonomous AI agents against experienced human teams in real-time, tackling 20 cybersecurity challenges over 48 hours. We offered a monetary prize of 7500\$ to incentivize participation and effort. 
 
 For the pilot event, we wanted to make it as easy as possible for the AI teams to compete. The event focused on challenges in the cryptography and reverse engineering, as these areas are the easiest to build a harness for. The challenges only required running commands in the terminal, without the need for dynamic interactions with external machines. 
 
 == Absolute standings
-// 152 human teams  +6 ai teams
 Overall 403 teams registered for the event, of which only 158 solved at least 1 challenge - 152 human teams and 6 AI teams. 
 
 _Palisade Research_ team ran 2 AI agents during this event - our adaptation of Claude Code for CTFs and our in-house React&Plan agent design #cite(<turtayev2024hackingctfsplainagents>). 
  
  Notably, AI teams significantly exceeded our initial expectations and the challenges were quickly saturated. Best AI team achieves top-13% performance among teams that solved at least 1 challenge. Four out of seven agents completed 19/20 challenges. You can see the final AI teams standings in @ai_vs_hum_standings. 
   
- Our expectations had been based on preliminary benchmark evaluations of our state-of-the-art agent on older _Hack The Box_-style tasks #cite(<turtayev2024hackingctfsplainagents>). The challenge difficulty was calibrated based on these prior results. This outcome may suggest that conventional evaluation methods by small teams (like ours) may fail to fully surface the capabilities of current AI models, highlighting the need for more dynamic and diversified approaches.
+ Our expectations for AI performance had been based on preliminary evaluations of our React&Plan agent on older _Hack The Box_-style tasks.#todoap[D, are we allowed to say this?] The challenge difficulty was calibrated based on these prior results with expectations of AI solving \~50% of tasks. Turns out AI could do way better. This outcome suggests that conventional evaluation methods by small teams (like ours) may fail to fully surface the capabilities of current AI models, highlighting the need for more dynamic and diversified approaches.
 
 #figure(
   table(
@@ -116,14 +118,19 @@ One of the core advantages AIs typically hold over humans is speed. As shown in 
 // Todo: praise AI speed for reaching human performance
 #figure(
   image("plots/team_progression_AI_vs_Humans_CTF_aligned.svg", width: 100%),
-  caption: "Number of challenges solved over time",
-) <ai_vs_hum_progression> #tododmv[Do we need the median line?]#todoap[Two similar lines may paint a cleaner picture on first look than a bunch of different lines. Is that helpful?]
+  caption: [Number of challenges solved over time for _AI vs Humans_ CTF.#tododmv[Do we need the median line?]#todoap[Two similar lines may paint a cleaner picture on first look than a bunch of different lines. Is that helpful?]],
+  placement: auto,
+) <ai_vs_hum_progression> 
 
 The exceptional speed of human teams surprised us, so we reached out to five top human teams for comments. Participants attributed their ability to solve the challenges quickly to their extensive experience as professional CTF players, noting that they were familiar with the standard techniques commonly used to solve such problems. One participant, for example, said that he was "playing on a couple of internationally-ranked teams with years of experience". 
 
 For details on AI agent designs, please see @agent_designs[Appendix].
 
 // TODO: add appendix showcasing "average human team speed" to highlight the exceptionalism of the top teams
+
+You can see more plots in @detailed_data_appendix[Appendix].
+
+We make all performance data available at TODO PUBLIC REPO LINK.
 
 = _Cyber Apocalypse _ 
 
@@ -133,7 +140,7 @@ Overall, 3994 human teams solved at least one challenge. We invited the AI teams
 
 _Palisade’s_ submissions performed poorly, because our harness was not designed to interact with external machines, while about 2/3 of challenges required it.
 
-As this competition was less saturated with AI participation, the resulting data allowed us to calculate the 50%-completion-time horizon, discussed in the next section. 
+As this competition challenges were not saturated by AI, the resulting data allowed us to calculate the 50%-completion-time horizon, discussed in the next section. 
 
 #let ca_results = csv("tables/ai_team_standings_CyberApocalypse.csv")
 
@@ -151,22 +158,24 @@ As this competition was less saturated with AI participation, the resulting data
 
 #figure(
   image("plots/team_progression_CyberApocalypse_aligned.svg", width: 100%),
-  caption: "Number of challenges solved over time",
+  caption: [Number of challenges solved over time for _Cyber Apocalypse_ CTF.],
+  placement: auto,
 ) <ca_progression>
 
 
 
 = Ability to complete long tasks
  
-Modern AIs are known to struggle with tasks that require staying coherent on long timescales. A recent study by _METR_ has shown that modern AIs can reliably complete tasks requiring up to 1 hour of human expert effort #cite(<measuring-ai-ability-to-complete-long-tasks>). 
+Modern AIs are known to struggle with tasks that require staying coherent on long timescales. A recent study by _METR_ has shown that modern AIs can reliably complete tasks requiring up to 1 hour of human expert effort #cite(<kwa2025measuringaiabilitycomplete>). 
 
-To estimate the human expert effort equivalent to current AI capabilities, we follow _METR_ #cite(<measuring-ai-ability-to-complete-long-tasks>) #todomt[better to quote the original paper as this is where the concept is explained https://arxiv.org/pdf/2503.14499] by measuring the 50%-task-completion time horizon. This is a metric that indicates the time humans typically take to complete tasks that AI models can complete with a 50% success rate.
+To estimate the human expert effort equivalent to current AI capabilities, we follow #cite(<kwa2025measuringaiabilitycomplete>) by measuring the 50%-task-completion time horizon. This is a metric that indicates the time humans typically take to complete tasks that AI models can complete with a 50% success rate.
 
 Analyzing the data from _Cyber Apocalypse_ we reach a similar outcome - AI can solve challenges requiring \~1 hour of effort from a median participant. See @equivalent_human_effort[Appendix] for details.
 
 #figure(
   image("plots/is_ai_solved_vs_median_human_time_regression_CyberApocalypse.svg", width: 100%),
-  caption: "50%-task-completion time horizon calculation based on _Cyber Apocalypse_ data",
+  caption: [50%-task-completion time horizon calculation based on _Cyber Apocalypse_ data.],
+  placement: auto,
 ) <average_solve_time> 
 
 //TODO: get a real difficulties visual/table and percentage solved by AI.
@@ -177,7 +186,7 @@ Analyzing the data from _Cyber Apocalypse_ we reach a similar outcome - AI can s
 //Alternative text: Measuring AI capabilities through human-centered metrics
 //Understanding how AI performance compares to human expertise is essential for evaluating real-world readiness and informing policy. Traditional benchmarks can often be hard to interpret outside of technical domains and offer little insight into how scores relate to human expertise. 
 //To this end, we adopted a metric proposed by _METR_ (2025): the 50%-task-completion time horizon. This is a metric that indicates the time humans typically take to complete tasks that AI models can complete with a 50% success rate. It offers a straightforward way to assess how "expert-like" an AI system is in practice.
-//Modern AIs are known to struggle with tasks that require staying coherent on long timescales. A recent study by _METR_ has shown that modern AIs can reliably complete tasks requiring up to 1 hour of human expert effort #cite(<measuring-ai-ability-to-complete-long-tasks>). 
+//Modern AIs are known to struggle with tasks that require staying coherent on long timescales. A recent study by _METR_ has shown that modern AIs can reliably complete tasks requiring up to 1 hour of human expert effort #cite(<kwa2025measuringaiabilitycomplete>). 
 //We applied _METR’s_ metric to the data from the _Cyber Apocalypse_ competition. By analyzing task completion times among human participants and comparing them with AI agents’ performance, we found results consistent with _METR’s_ original findings. Specifically, the AI agents were able to solve cyber challenges that required one hour or less of effort from a median human participant.
 = Discussion <discussion> 
 
@@ -219,8 +228,8 @@ This was our first attempt at crowdsourcing in this context, and while it offere
     [Frontier Labs], [2], [1], [0], [1 (FCT)],
     [Individuals], [0], [0], [3], [2 (Imperturbable, Project S1ngularity)],
   ),
-  caption: [AI teams registration flow for the AI vs Humans event],
-) <registration-flow> #todoap[for max pretty this can be a sankey diagram]
+  caption: [AI teams registration flow for the AI vs Humans event. #todoap[for max pretty this can be a sankey diagram]],
+) <registration-flow> 
 
 //CAI though did better than us. // not sure what this sentence is?
 
@@ -345,7 +354,7 @@ https://docs.google.com/spreadsheets/d/1sdMC2AFwZ131vNG-iHyiDL0j2nyqa3gV5fN234Qk
 The agent our team designed while working on @turtayev2024hackingctfsplainagents
 = Measuring 50%-task-completion time horizon <equivalent_human_effort>
 
-To estimate the human expert effort equivalent to current AI capabilities we follow #cite(<measuring-ai-ability-to-complete-long-tasks>) by measuring the 50%-task-completion time horizon. This is the time humans typically take to complete tasks that AI models can complete with 50% success rate.
+To estimate the human expert effort equivalent to current AI capabilities we follow #cite(<kwa2025measuringaiabilitycomplete>) by measuring the 50%-task-completion time horizon. This is the time humans typically take to complete tasks that AI models can complete with 50% success rate.
 
 _Hack The Box_ estimates difficulty of the challenges by measuring how long it takes a median participant from first accessing the challenge data (by downloading challenge files or starting the docker container) to submitting a flag. We adopt this approach to measure human time spent solving a challenge.
 
@@ -381,12 +390,21 @@ TODO
 
 // Naive multiplication is bad - it overestimates a lot. Pls do the correct way by calculating time to solve 
 
+= Detailed data <detailed_data_appendix>
 
-= Challenges solved by AI per category and difficulty
+== Challenges solved by AI per category and difficulty
 
-= Team scores in real time
+TODO or drop
+
+== Top team scores in real time
 
 #figure(
   image("plots/team_progression_AI_vs_Humans_CTF_unaligned.svg", width: 100%),
-  caption: "Number of challenges solved over time",
-) <ai_vs_hum_progression_real_time> // TODO drop medians here
+  caption: [Number of challenges solved over time for _AI vs Humans_ CTF.],
+) <ai_vs_hum_progression_real_time>
+
+== All teams trajectories for _AI vs Humans_ CTF 
+#figure(
+  image("plots/team_progression_AI_vs_Humans_CTF_aligned_top7_ai_top151_human.svg", width: 100%),
+  caption: [Number of challenges solved over time fror all teams for _AI vs Humans_ CTF. Top AI Agents outperform almostall human teams.],
+) <ai_vs_hum_progression_real_time>

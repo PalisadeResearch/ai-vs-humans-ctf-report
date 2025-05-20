@@ -258,6 +258,9 @@ def get_team_score_progression(
 
     solve_times = team_flags["created_at"].tolist()
 
+    if len(solve_times) == 0:
+        raise ValueError(f"Team {team_name} has no solves")
+
     # Choose reference time based on alignment mode
     reference_time = solve_times[0] if aligned else event.event_start
 
@@ -301,12 +304,25 @@ def plot_team_progression(
     x_lim=10000,
     player_normalized=False,
     background_alpha=0.2,
+    _human_teams: list[str] | None = None,
+    _ai_teams: list[str] | None = None,
+    ai_teams_alpha=None,
+    human_teams_alpha=None,
 ):
     plt.figure(figsize=(15, 8))
     plt.grid(True, alpha=0.3)
 
+    human_teams = event.top_human_teams if _human_teams is None else _human_teams
+
+    ai_teams = event.top_ai_teams if _ai_teams is None else _ai_teams
+
+    if ai_teams_alpha is None:
+        ai_teams_alpha = background_alpha
+    if human_teams_alpha is None:
+        human_teams_alpha = background_alpha
+
     # Plot individual team lines
-    for team in event.top_ai_teams:
+    for team in ai_teams:
         times, scores = get_team_score_progression(event, team, aligned=aligned)
         plt.plot(
             times,
@@ -314,14 +330,14 @@ def plot_team_progression(
             "-o",
             markersize=4,
             linewidth=1,
-            alpha=background_alpha,
+            alpha=ai_teams_alpha,
             color=AI_COLOR,
-            label=f"Top {len(event.top_ai_teams)} AI Teams"
-            if team == event.top_ai_teams[0] and not plot_medians
+            label=f"Top {len(ai_teams)} AI Agents"
+            if team == ai_teams[0] and not plot_medians
             else None,
         )
 
-    for team in event.top_human_teams:
+    for team in human_teams:
         times, scores = get_team_score_progression(event, team, aligned=aligned)
 
         if player_normalized:
@@ -333,23 +349,23 @@ def plot_team_progression(
             "-o",
             markersize=4,
             linewidth=1,
-            alpha=background_alpha,
+            alpha=human_teams_alpha,
             color=HUMAN_COLOR,
-            label=f"Top {len(event.top_human_teams)} Human Teams"
+            label=f"Top {len(human_teams)} Human Teams"
             + (" (Player-Normalized)" if player_normalized else "")
-            if team == event.top_human_teams[0] and not plot_medians
+            if team == human_teams[0] and not plot_medians
             else None,
         )
 
     if plot_medians:
         ai_times, ai_scores = calculate_nth_solve_medians(
-            event, event.top_ai_teams, aligned=aligned
+            event, ai_teams, aligned=aligned
         )
         if player_normalized:
             human_times, human_scores = [], []
             solve_times_by_n = {}
 
-            for team in event.top_human_teams:
+            for team in human_teams:
                 times, scores = get_team_score_progression(event, team, aligned=aligned)
                 player_count = event.teams_data[team].number_of_players
                 normalized_times = [t * player_count for t in times]
@@ -365,14 +381,14 @@ def plot_team_progression(
 
         else:
             human_times, human_scores = calculate_nth_solve_medians(
-                event, event.top_human_teams, aligned=aligned
+                event, human_teams, aligned=aligned
             )
 
         plt.plot(
             ai_times,
             ai_scores,
             "--",
-            label=f"Top {len(event.top_ai_teams)} AI Teams Median",
+            label=f"Top {len(ai_teams)} AI Agents Median",
             linewidth=3,
             color=AI_COLOR,
         )
@@ -381,7 +397,7 @@ def plot_team_progression(
             human_scores,
             "--",
             label=(
-                f"Top {len(event.top_human_teams)} Human Teams Median"
+                f"Top {len(human_teams)} Human Teams Median"
                 + (" (Player-Normalized)" if player_normalized else "")
             ),
             linewidth=3,
@@ -409,6 +425,8 @@ def plot_team_progression(
         repo_root / f"paper-typst/plots/team_progression_{event.event_name_no_spaces}_"
         f"{'aligned' if aligned else 'unaligned'}"
         f"{'_normalized' if player_normalized else ''}"
+        f"{'_top' + str(len(ai_teams)) + '_ai' if _ai_teams else ''}"
+        f"{'_top' + str(len(human_teams)) + '_human' if _human_teams else ''}"
         ".svg"
     )
     plt.show()
@@ -440,6 +458,29 @@ plot_team_progression(
     x_lim=100000,
 )
 
+plot_team_progression(
+    event=ai_vs_hum_event,
+    aligned=True,
+    plot_medians=False,
+    background_alpha=0.2,
+    _human_teams=[
+        team
+        for team in ai_vs_hum_event.human_team_names
+        if ai_vs_hum_event.teams_data[team].total_solves > 0
+    ],
+    _ai_teams=[
+        "[AI] CAI",
+        "[AI] Palisade Claude Code",
+        "[AI] Palisade R&P OA",
+        "[AI] Project S1ngularity",
+        "[AI] Cyagent",
+        "[AI] imperturbable",
+        "[AI] FCT",
+    ],
+    ai_teams_alpha=0.8,
+    human_teams_alpha=0.1,
+)
+
 # Same plots, but with the human team times normalized by player count
 
 plot_team_progression(
@@ -455,6 +496,13 @@ plot_team_progression(
     x_lim=100000,
     player_normalized=True,
 )
+
+# %%
+[
+    team
+    for team in ai_vs_hum_event.ai_team_names
+    if ai_vs_hum_event.teams_data[team].total_solves > 0
+]
 
 # %%
 
