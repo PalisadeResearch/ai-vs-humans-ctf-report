@@ -38,13 +38,17 @@
       // *v3 *
 
   
-As AI systems become increasingly capable, understanding their offensive potential is critical for informed governance and responsible deployment. 
+As AI systems become increasingly capable, understanding their offensive cyber potential is critical for informed governance and responsible deployment. However, eliciting AI capabilities is hard. 
 
-In this paper, we explore Capture The Flag (CTF) competitions as a method for eliciting and evaluating offensive AI capabilities. We present findings from the first open _AI vs. Humans _CTF competition, where AI teams competed against each other and human hackers. To extend this evaluation, we also organized an AI track as part of _Cyber Apocalypse_, an annual CTF event with thousands of participants.
+//Make more upfront that we are about evals gap
+// In this paper, we explore Capture The Flag (CTF) competitions as a method for eliciting and evaluating offensive AI capabilities. We present findings from the first open _AI vs. Humans _CTF competition, where AI teams competed against each other and human hackers. To extend this evaluation, we also organized an AI track as part of _Cyber Apocalypse_, an annual CTF event with thousands of participants.
 
-AI systems outperformed our estimates grounded in prior research and current industry benchmarks for AI capabilities. Top AI teams effectively saturated our task set, completing 19 out of 20 challenges and ranking in the top 13% overall, while being as fast as best human teams. We further adapted #cite(<measuring-ai-ability-to-complete-long-tasks>) 50%-task-completion time horizon metric and found that AI agents perform as well on cyber tasks as on the general tasks evaluated in METR’s original study: they can reliably solve challenges requiring one hour or less of effort from a median human participant.
+In this paper, we explore crowdsourcing elicitation efforts as an alternative to in-house elicitation work. We present findings from the first open _AI vs. Humans _CTF competition, where AI teams competed against each other and human hackers. To extend this evaluation, we also organized an AI track as part of _Cyber Apocalypse_, an annual CTF event with thousands of participants.
 
-While further work is needed to deepen our understanding, we tentatively suggest that CTFs may offer an effective and scalable alternative to lab-based elicitations. Public evaluations, grounded in the performance of human participants, also promise a more intuitive and interpretable alternative to traditional benchmark scores, enhancing accessibility to both policymakers and the general public. 
+// AI systems outperformed our estimates grounded in prior research and current industry benchmarks for AI capabilities. 
+Top AI teams effectively saturated our task set, completing 19 out of 20 challenges and ranking in the top 13% overall, while being as fast as best human teams. We further adapted #cite(<measuring-ai-ability-to-complete-long-tasks>) 50%-task-completion time horizon metric and found that AI agents perform as well on cyber tasks as on the general tasks evaluated in METR’s original study: they can reliably solve challenges requiring one hour or less of effort from a median human participant.
+
+While further work is needed to deepen our understanding, we tentatively suggest that CTFs may offer an effective and scalable alternative to lab-based elicitations. Evaluations, grounded in the performance of human participants, also promise a more intuitive and interpretable alternative to traditional benchmark scores, enhancing accessibility to both policymakers and the general public. 
 
 
 #set heading(numbering: "1.")
@@ -64,7 +68,7 @@ Eliciting AI capabilities is hard. Yet accurately estimating them is important, 
 
 // Crowdsourcing is a tool used to bring in external expertise. Prominent examples of crowd sourcing are Kaggle challenges and hackathons.
 
-We propose crowdsourcing elicitation efforts as an effective strategy to boost cyber performance and close the evals gap#footnote[As defined by Apollo Research, the 'evals gap' is the growing mismatch between the need for strong safety evaluations of advanced AI models and the lack of high-quality tools to assess what these models can do. See #cite(<apollo-research-evals-gap>) for a more detailed discussion.] #cite(<apollo-research-evals-gap>). To explore this novel approach, we hosted a first-of-a-kind _AI vs. Humans _Capture The Flag (CTF) competition, inviting AI developers to compete against each other and human teams. We then additionally analyzed AI performance in _Cyber Apocalypse_ - a large CTF competition with thousands of participants.  
+We propose crowdsourcing elicitation efforts as a strategy to boost cyber performance and close the evals gap#footnote[As defined by Apollo Research, the 'evals gap' is the growing mismatch between the need for strong safety evaluations of advanced AI models and the lack of high-quality tools to assess what these models can do. See #cite(<apollo-research-evals-gap>) for a more detailed discussion.] #cite(<apollo-research-evals-gap>). To explore this novel approach, we hosted a first-of-a-kind _AI vs. Humans _Capture The Flag (CTF) competition, inviting AI developers to compete against each other and human teams. We then additionally analyzed AI performance in _Cyber Apocalypse_ - a large CTF competition with thousands of participants.  
 
 In this paper, we report on the performance AI exhibited in these events and compare it to human performance.    
 
