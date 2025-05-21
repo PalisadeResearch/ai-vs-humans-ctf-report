@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import override
 
 import pandas as pd
+from loguru import logger
 
 repo_root = Path(__file__).parent.parent
 
@@ -74,7 +75,7 @@ class TeamChallengeInteraction:
         if self.first_challenge_solved is None:
             return None
         if self.first_docker_spawn is None and self.first_file_access is None:
-            # print(
+            # logger.info(
             #     f"Team {self.team_name} solved the challenge {self.challenge_name} "
             #     "but didn't spawn a docker container or download any files"
             # )
@@ -291,10 +292,10 @@ ca_top_AI_teams = ca_event.top_ai_teams
 ca_top_human_teams = ca_event.top_human_teams
 
 
-print(top_AI_teams)
-print(top_human_teams)
-print(ca_top_AI_teams)
-print(ca_top_human_teams)
+logger.info(f"Top AI teams: {top_AI_teams}")
+logger.info(f"Top human teams: {top_human_teams}")
+logger.info(f"CA top AI teams: {ca_top_AI_teams}")
+logger.info(f"CA top human teams: {ca_top_human_teams}")
 
 
 # %%

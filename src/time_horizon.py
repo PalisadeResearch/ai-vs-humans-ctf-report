@@ -1,12 +1,15 @@
+import argparse
 import math
+import sys
 
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
+from loguru import logger
 from sklearn.linear_model import LogisticRegression
 
-from src.data import Event, ai_vs_hum_event, ca_event, repo_root
+from src.data import Event, ai_vs_hum_event, ca_event
 
 
 # %%
@@ -126,23 +129,18 @@ def plot_is_ai_solved_vs_median_human_time(
     plt.legend(
         title="Is Solved by AI",
     )
-    plt.savefig(
-        repo_root / f"paper-typst/plots/is_ai_solved_vs_median_human_time_"
-        f"{event.event_name_no_spaces}"
-        f"{'_detailed' if select_n_fastest_humans != [None] else ''}"
-        f".svg"
-    )
-    plt.show()
 
 
-plot_is_ai_solved_vs_median_human_time(ai_vs_hum_event)
-plot_is_ai_solved_vs_median_human_time(
-    ai_vs_hum_event, select_n_fastest_humans=[3, 10, 50, None]
-)
-plot_is_ai_solved_vs_median_human_time(ca_event)
-plot_is_ai_solved_vs_median_human_time(
-    ca_event, select_n_fastest_humans=[10, 100, 500, None]
-)
+# Sample calls for direct execution
+# Uncomment these for debugging if needed
+# plot_is_ai_solved_vs_median_human_time(ai_vs_hum_event)
+# plot_is_ai_solved_vs_median_human_time(
+#     ai_vs_hum_event, select_n_fastest_humans=[3, 10, 50, None]
+# )
+# plot_is_ai_solved_vs_median_human_time(ca_event)
+# plot_is_ai_solved_vs_median_human_time(
+#     ca_event, select_n_fastest_humans=[10, 100, 500, None]
+# )
 
 # %%
 
@@ -347,31 +345,65 @@ def plot_is_ai_solved_vs_median_human_time_regression(
 
     plt.tight_layout()
 
-    plt.savefig(
-        repo_root / f"paper-typst/plots/is_ai_solved_vs_median_human_time_regression_"
-        f"{event.event_name_no_spaces}"
-        f"{'_detailed' if len(select_n_fastest_humans) > 1 else ''}"
-        f".svg"
+
+# Dictionary of available figure functions
+FIGURE_FUNCTIONS = {
+    # Simple AI solved vs human time plots
+    "is_ai_solved_vs_median_human_time_aivshum": lambda: plot_is_ai_solved_vs_median_human_time(
+        ai_vs_hum_event
+    ),
+    "is_ai_solved_vs_median_human_time_aivshum_detailed": lambda: plot_is_ai_solved_vs_median_human_time(
+        ai_vs_hum_event, select_n_fastest_humans=[3, 10, 50, None]
+    ),
+    "is_ai_solved_vs_median_human_time_ca": lambda: plot_is_ai_solved_vs_median_human_time(
+        ca_event
+    ),
+    "is_ai_solved_vs_median_human_time_ca_detailed": lambda: plot_is_ai_solved_vs_median_human_time(
+        ca_event, select_n_fastest_humans=[10, 100, 500, None]
+    ),
+    # Regression plots
+    "is_ai_solved_vs_median_human_time_regression_aivshum": lambda: plot_is_ai_solved_vs_median_human_time_regression(
+        ai_vs_hum_event
+    ),
+    "is_ai_solved_vs_median_human_time_regression_aivshum_detailed": lambda: plot_is_ai_solved_vs_median_human_time_regression(
+        ai_vs_hum_event, select_n_fastest_humans=[0.01, 0.1, 0.5, None]
+    ),
+    "is_ai_solved_vs_median_human_time_regression_ca": lambda: plot_is_ai_solved_vs_median_human_time_regression(
+        ca_event, select_n_fastest_humans=[0.01]
+    ),
+    "is_ai_solved_vs_median_human_time_regression_ca_detailed": lambda: plot_is_ai_solved_vs_median_human_time_regression(
+        ca_event, select_n_fastest_humans=[0.005, 0.01, 0.1, None]
+    ),
+}
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Generate time horizon plots for CTF analysis"
     )
-    plt.show()
+    parser.add_argument(
+        "figure_name",
+        help=f"Name of the figure to generate. Available figures: {', '.join(FIGURE_FUNCTIONS.keys())}",
+    )
+
+    args = parser.parse_args()
+
+    figure_name = args.figure_name
+
+    if figure_name not in FIGURE_FUNCTIONS:
+        logger.error(f"Unknown figure name '{figure_name}'")
+        logger.error(f"Available figures: {', '.join(FIGURE_FUNCTIONS.keys())}")
+        sys.exit(1)
+
+    # Call the appropriate function to generate the figure
+    FIGURE_FUNCTIONS[figure_name]()
+
+    # Save the figure to stdout
+    plt.savefig(sys.stdout.buffer, format="svg", bbox_inches="tight")
+    plt.close()
 
 
-# plot_is_ai_solved_vs_median_human_time_regression(ai_vs_hum_event)
-# plot_is_ai_solved_vs_median_human_time_regression(
-#     ai_vs_hum_event, select_n_fastest_humans=[3, 10, 50, None]
-# )
-# plot_is_ai_solved_vs_median_human_time_regression(ca_event)
-# plot_is_ai_solved_vs_median_human_time_regression(
-#     ca_event, select_n_fastest_humans=[10, 100, 500, None]
-# )
-
-plot_is_ai_solved_vs_median_human_time_regression(
-    ca_event, select_n_fastest_humans=[0.005, 0.01, 0.1, None]
-)
-
-plot_is_ai_solved_vs_median_human_time_regression(
-    ca_event, select_n_fastest_humans=[0.01]
-)
-
+if __name__ == "__main__":
+    main()
 
 # %%
