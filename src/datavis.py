@@ -287,8 +287,7 @@ def plot_team_progression(
     ai_teams_alpha=None,
     human_teams_alpha=None,
 ):
-    plt.figure(figsize=(15, 8))
-    plt.grid(True, alpha=0.3)
+    plt.figure(figsize=(12, 3))
 
     human_teams = event.top_human_teams if _human_teams is None else _human_teams
 
@@ -366,7 +365,7 @@ def plot_team_progression(
             ai_times,
             ai_scores,
             "--",
-            label=f"Top {len(ai_teams)} AI Agents Median",
+            label=f"Top {len(ai_teams)} AI Agents median",
             linewidth=3,
             color=AI_COLOR,
         )
@@ -375,7 +374,7 @@ def plot_team_progression(
             human_scores,
             "--",
             label=(
-                f"Top {len(human_teams)} Human Teams Median"
+                f"Top {len(human_teams)} Human Teams median"
                 + (" (Player-Normalized)" if player_normalized else "")
             ),
             linewidth=3,
@@ -383,21 +382,28 @@ def plot_team_progression(
         )
 
     # plt.xscale("log")
-    FONT_SIZE = 18
+    FONT_SIZE = 14
     plt.xlim(0, x_lim)
     plt.xticks(range(0, x_lim, 3600), [f"{t // 3600}h" for t in range(0, x_lim, 3600)])
     plt.xlabel(
-        "Time since start" if not aligned else "Time since first solve",
+        "Time since start" if not aligned else "Elapsed since team's first submission",
         fontsize=FONT_SIZE,
     )
     plt.ylabel("Challenges solved", fontsize=FONT_SIZE)
-    # plt.yticks(range(2, 21, 2))
+    max_y = max(
+        [event.teams_data[team].total_solves for team in ai_teams + human_teams]
+    )
+    plt.yticks(range(0, max_y + 1, max_y // 5))
+    plt.ylim(1, max_y + 0.1)
     # plt.title(
     #     "Top Teams Score Progression"
     #     if not aligned
     #     else "Team Score Progression After First Solve"
     # )
     plt.legend(loc="lower right", fontsize=FONT_SIZE)
+    ax = plt.gca()
+    ax.spines["right"].set_visible(False)
+    ax.spines["top"].set_visible(False)
     plt.tight_layout()
 
 
