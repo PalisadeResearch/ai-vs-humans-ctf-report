@@ -1,4 +1,5 @@
 # %%
+from loguru import logger
 from src.data import ca_AI_interactions_data, ca_challenges_data
 
 # %%
@@ -109,42 +110,42 @@ def count_tasks_per_category_and_difficulty(
 
 def pretty_print_solves(solves: dict[str, dict[str, int]]):
     for category, data in solves.items():
-        print(f"{category:<20}: {data['solved']}/{data['total']}")
+        logger.info(f"{category:<20}: {data['solved']}/{data['total']}")
 
 
 def pretty_print_tasks_per_category_and_difficulty(
     solves: dict[str, dict[str, dict[str, int]]],
 ):
     for category, difficulty_data in solves.items():
-        print(f"### {category}")
+        logger.info(f"### {category}")
         for difficulty, data in difficulty_data.items():
-            print(f"{difficulty:<20}: {data['solved']}/{data['total']}")
+            logger.info(f"{difficulty:<20}: {data['solved']}/{data['total']}")
 
 
 # %%
 for team in ca_AI_interactions_data["team_name"].unique():
-    print(team)
+    logger.info(team)
     pretty_print_solves(
         count_solves_per_category(ca_AI_interactions_data, ca_challenges_data, team)
     )
 
 # %%
 for team in ca_AI_interactions_data["team_name"].unique():
-    print(team)
+    logger.info(team)
     pretty_print_solves(
         count_solves_per_difficulty(ca_AI_interactions_data, ca_challenges_data, team)
     )
 
 # %%
 for team in ca_AI_interactions_data["team_name"].unique():
-    print(team)
+    logger.info(team)
     pretty_print_solves(
         count_solves_per_has_docker(ca_AI_interactions_data, ca_challenges_data, team)
     )
 
 # %%
 for team in ca_AI_interactions_data["team_name"].unique():
-    print(team)
+    logger.info(team)
     pretty_print_tasks_per_category_and_difficulty(
         count_tasks_per_category_and_difficulty(
             ca_AI_interactions_data, ca_challenges_data, team

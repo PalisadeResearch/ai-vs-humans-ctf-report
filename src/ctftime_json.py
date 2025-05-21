@@ -1,6 +1,7 @@
 # %%
 import json
 
+from loguru import logger
 from data import challenge_data, participants_data
 
 # Create standings list for all teams
@@ -39,6 +40,6 @@ save_path = "../data/ctftime_rankings.json"
 with open(save_path, "w") as f:
     json.dump(rankings_json, f)
 
-print(f"Rankings saved to {save_path}")
+logger.info(f"Rankings saved to {save_path}")
 
 # %%

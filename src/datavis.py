@@ -1,4 +1,6 @@
 # %%
+import argparse
+import sys
 from itertools import chain
 from typing import Literal
 
@@ -6,13 +8,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import seaborn as sns
+from loguru import logger
 
-from src.data import (
-    Event,
-    ai_vs_hum_event,
-    ca_event,
-    repo_root,
-)
+from src.data import Event, ai_vs_hum_event, ca_event
 
 # %%
 
@@ -55,9 +53,9 @@ def plot_challenge_stats(event: Event, outlier_threshold=60 * 60 * 6):
         ]
         solve_times = [t for t in solve_times if 0 < t < outlier_threshold]
         if len(solve_times) == 0:
-            print(f"Challenge {challenge_name} has no solve times")
+            logger.warning(f"Challenge {challenge_name} has no solve times")
         if min(solve_times) < 0:
-            print(f"Challenge {challenge_name} has negative solve time")
+            logger.warning(f"Challenge {challenge_name} has negative solve time")
         all_solve_times[challenge_name] = solve_times
 
     challenge_difficulties = {
@@ -124,23 +122,13 @@ def plot_challenge_stats(event: Event, outlier_threshold=60 * 60 * 6):
 
     plt.title(f"Challenge Solve Times Distribution - {event.event_name}")
     plt.tight_layout()
-    plt.savefig(
-        repo_root
-        / f"paper-typst/plots/challenge_solve_times_{event.event_name_no_spaces}.svg"
-    )
-    plt.show()
 
     # Count solve times under 30 seconds:
     tiny_threshold = 30
-    print(
+    logger.info(
         f"Number of solve times under {tiny_threshold} seconds: "
         f"{len([t for t in chain(*all_solve_times.values()) if t < tiny_threshold])}"
     )
-
-
-plot_challenge_stats(ai_vs_hum_event)
-
-plot_challenge_stats(ca_event, outlier_threshold=60 * 60 * 24 * 4)
 
 
 # %%
@@ -233,19 +221,9 @@ def plot_histograms(
     # plt.ylabel("Normalized Count")
     plt.xlabel("Time per challenge (seconds)")
     plt.title(event.event_name)
-    plt.savefig(
-        repo_root / "paper-typst/plots/challenge_solve_times_histograms_"
-        f"{event.event_name_no_spaces}_"
-        f"{team_selection}.svg"
-    )
-    plt.show()
+    plt.tight_layout()
 
 
-# Todo these log plots are sus af
-plot_histograms(ai_vs_hum_event)
-plot_histograms(ca_event)
-plot_histograms(ai_vs_hum_event, team_selection="all")
-# plot_histograms(ca_event, team_selection="all")
 # %%
 
 
@@ -421,80 +399,6 @@ def plot_team_progression(
     # )
     plt.legend(loc="lower right", fontsize=FONT_SIZE)
     plt.tight_layout()
-    plt.savefig(
-        repo_root / f"paper-typst/plots/team_progression_{event.event_name_no_spaces}_"
-        f"{'aligned' if aligned else 'unaligned'}"
-        f"{'_normalized' if player_normalized else ''}"
-        f"{'_top' + str(len(ai_teams)) + '_ai' if _ai_teams else ''}"
-        f"{'_top' + str(len(human_teams)) + '_human' if _human_teams else ''}"
-        ".svg"
-    )
-    plt.show()
-
-
-# Create the two plots using the shared function
-plot_team_progression(
-    event=ai_vs_hum_event,
-    aligned=False,
-    plot_medians=False,
-    background_alpha=0.8,
-)
-
-plot_team_progression(
-    event=ai_vs_hum_event,
-    aligned=True,
-    plot_medians=True,
-)
-
-plot_team_progression(event=ca_event, aligned=False, x_lim=100000, ai_teams_alpha=0.5)
-
-plot_team_progression(
-    event=ca_event,
-    aligned=True,
-    x_lim=100000,
-    ai_teams_alpha=0.5,
-)
-
-plot_team_progression(
-    event=ai_vs_hum_event,
-    aligned=True,
-    plot_medians=False,
-    background_alpha=0.2,
-    _human_teams=[
-        team
-        for team in ai_vs_hum_event.human_team_names
-        if ai_vs_hum_event.teams_data[team].total_solves > 0
-    ],
-    _ai_teams=[
-        "[AI] CAI",
-        "[AI] Palisade Claude Code",
-        "[AI] Palisade R&P OA",
-        "[AI] Project S1ngularity",
-        "[AI] Cyagent",
-        "[AI] imperturbable",
-        "[AI] FCT",
-    ],
-    ai_teams_alpha=0.8,
-    human_teams_alpha=0.1,
-)
-
-# Same plots, but with the human team times normalized by player count
-
-plot_team_progression(
-    event=ai_vs_hum_event,
-    aligned=True,
-    plot_medians=True,
-    player_normalized=True,
-)
-
-plot_team_progression(
-    event=ca_event,
-    aligned=True,
-    x_lim=100000,
-    player_normalized=True,
-)
-
-# %%
 
 
 def plot_team_progression_highlight_first(event: Event, aligned=False):
@@ -538,17 +442,121 @@ def plot_team_progression_highlight_first(event: Event, aligned=False):
     )
     plt.legend(bbox_to_anchor=(1.05, 1), loc="upper left")
     plt.tight_layout()
-    plt.show()
 
 
-plot_team_progression_highlight_first(
-    event=ai_vs_hum_event,
-    aligned=False,
-)
+# Dictionary of available figure functions
+FIGURE_FUNCTIONS = {
+    # Challenge solve time plots
+    "challenge_solve_times_aivshum": lambda: plot_challenge_stats(ai_vs_hum_event),
+    "challenge_solve_times_ca": lambda: plot_challenge_stats(
+        ca_event, outlier_threshold=60 * 60 * 24 * 4
+    ),
+    # Histogram plots
+    "histogram_aivshum_top": lambda: plot_histograms(ai_vs_hum_event),
+    "histogram_ca_top": lambda: plot_histograms(ca_event),
+    "histogram_aivshum_all": lambda: plot_histograms(
+        ai_vs_hum_event, team_selection="all"
+    ),
+    # Team progression plots - AI vs Humans CTF
+    "team_progression_aivshum_unaligned": lambda: plot_team_progression(
+        event=ai_vs_hum_event,
+        aligned=False,
+        plot_medians=False,
+        background_alpha=0.8,
+    ),
+    "team_progression_aivshum_aligned": lambda: plot_team_progression(
+        event=ai_vs_hum_event,
+        aligned=True,
+        plot_medians=True,
+    ),
+    "team_progression_aivshum_aligned_top7": lambda: plot_team_progression(
+        event=ai_vs_hum_event,
+        aligned=True,
+        plot_medians=False,
+        background_alpha=0.2,
+        _human_teams=[
+            team
+            for team in ai_vs_hum_event.human_team_names
+            if ai_vs_hum_event.teams_data[team].total_solves > 0
+        ],
+        _ai_teams=[
+            "[AI] CAI",
+            "[AI] Palisade Claude Code",
+            "[AI] Palisade R&P OA",
+            "[AI] Project S1ngularity",
+            "[AI] Cyagent",
+            "[AI] imperturbable",
+            "[AI] FCT",
+        ],
+        ai_teams_alpha=0.8,
+        human_teams_alpha=0.1,
+    ),
+    "team_progression_aivshum_aligned_normalized": lambda: plot_team_progression(
+        event=ai_vs_hum_event,
+        aligned=True,
+        plot_medians=True,
+        player_normalized=True,
+    ),
+    # Team progression plots - CyberApocalypse
+    "team_progression_ca_unaligned": lambda: plot_team_progression(
+        event=ca_event, aligned=False, x_lim=100000, ai_teams_alpha=0.5
+    ),
+    "team_progression_ca_aligned": lambda: plot_team_progression(
+        event=ca_event,
+        aligned=True,
+        x_lim=100000,
+        ai_teams_alpha=0.5,
+    ),
+    "team_progression_ca_aligned_normalized": lambda: plot_team_progression(
+        event=ca_event,
+        aligned=True,
+        x_lim=100000,
+        player_normalized=True,
+    ),
+    # Team highlight first plots
+    "team_highlight_aivshum_unaligned": lambda: plot_team_progression_highlight_first(
+        event=ai_vs_hum_event,
+        aligned=False,
+    ),
+    "team_highlight_aivshum_aligned": lambda: plot_team_progression_highlight_first(
+        event=ai_vs_hum_event,
+        aligned=True,
+    ),
+    # No 'all' option - we only support individual figures
+}
 
-plot_team_progression_highlight_first(
-    event=ai_vs_hum_event,
-    aligned=True,
-)
 
-# %%
+# We no longer support the 'all' mode - each figure must be generated individually
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Generate data visualization figures for CTF analysis"
+    )
+    parser.add_argument(
+        "figure_name",
+        nargs="?",
+        default="all",
+        help=f"""Name of the figure to generate.
+        Available figures: {", ".join(FIGURE_FUNCTIONS.keys())}""",
+    )
+
+    args = parser.parse_args()
+
+    figure_name = args.figure_name
+
+    if figure_name not in FIGURE_FUNCTIONS:
+        logger.error(f"Unknown figure name '{figure_name}'")
+        logger.error(f"Available figures: {', '.join(FIGURE_FUNCTIONS.keys())}")
+        sys.exit(1)
+
+    # Call the appropriate function to generate the figure
+    FIGURE_FUNCTIONS[figure_name]()
+
+    # Save the figure to stdout
+    plt.savefig(sys.stdout.buffer, format="svg", bbox_inches="tight")
+    plt.close()
+
+
+if __name__ == "__main__":
+    main()
