@@ -85,6 +85,13 @@ build tables: phony paper-typst/tables/ai_team_standings_AI_vs_Humans_CTF.csv
 
 build figures: phony $
   paper-typst/plots/team_progression_AI_vs_Humans_CTF_aligned.svg $
+  paper-typst/plots/team_progression_CyberApocalypse_aligned.svg $
+  paper-typst/plots/is_ai_solved_vs_median_human_time_regression_CyberApocalypse.svg $
+  paper-typst/plots/is_ai_solved_vs_median_human_time_regression_CyberApocalypse_detailed.svg $
+  paper-typst/plots/team_progression_AI_vs_Humans_CTF_unaligned.svg $
+
+build figures-all: phony $
+  paper-typst/plots/team_progression_AI_vs_Humans_CTF_aligned.svg $
   paper-typst/plots/team_progression_AI_vs_Humans_CTF_aligned_normalized.svg $
   paper-typst/plots/team_progression_CyberApocalypse_aligned.svg $
   paper-typst/plots/team_progression_CyberApocalypse_aligned_normalized.svg $
