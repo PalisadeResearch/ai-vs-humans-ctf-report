@@ -65,8 +65,9 @@ jobs:
 
       - name: Check if figures are up to date
         run: |
-          if [ -n "$(git status --porcelain)" ]; then
+          GIT_DIFF=$(git diff --name-only)
+          if [ -n "$GIT_DIFF" ]; then
             echo "::error::Figures are out of date. Please rebuild figures and commit the changes."
-            git diff --name-only
+            echo "$GIT_DIFF"
             exit 1
           fi
