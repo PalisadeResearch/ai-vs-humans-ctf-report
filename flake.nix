@@ -18,13 +18,19 @@
       {
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
+            # Basics
+            git
             ninja
+            # Python
             uv
+            ruff
+            # Typesetting
             typst
             texlive.combined.scheme-medium
+            nodePackages.svgo
+            # Nix
             nil
             nixfmt-rfc-style
-            nodePackages.svgo
           ];
         };
       }
