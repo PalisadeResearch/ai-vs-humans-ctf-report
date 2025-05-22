@@ -2,6 +2,7 @@
 import json
 
 from loguru import logger
+
 from data import challenge_data, participants_data
 
 # Create standings list for all teams
