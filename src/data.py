@@ -121,7 +121,7 @@ class Event:
     def __post_init__(self):
         # Remove duplicate rows
         self.interactions_data = self.interactions_data.copy().drop_duplicates(
-            subset=["team_name", "challenge_name", "interaction_type"]
+            subset=["team_name", "challenge_name", "interaction_type"], keep="first"
         )
         self.interactions_data["created_at"] = pd.to_datetime(
             self.interactions_data["created_at"], utc=True
@@ -132,24 +132,22 @@ class Event:
         self._init_teams_data()
 
     def _init_AI_teams(self):
-        self.ai_team_names = {
-            row["team_name"]
-            for index, row in self.rank_data.iterrows()
-            if row["team_name"].startswith("[AI]")
-        }
+        # Filter AI teams directly and sort deterministically
+        ai_teams_df = self.rank_data[
+            self.rank_data["team_name"].str.startswith("[AI]")
+            & (self.rank_data["team_name"] != "[AI] Palisade Ensemble")
+        ].sort_values(by="team_name")  # Sort by name for deterministic ordering
 
-        self.ai_team_names.discard("[AI] Palisade Ensemble")
+        self.ai_team_names = ai_teams_df["team_name"].tolist()
 
-        self.top_ai_teams = (
-            self.rank_data[self.rank_data["team_name"].isin(self.ai_team_names)]
-            .sort_values(by="rank", ascending=True)[: self.ai_top_n]["team_name"]
-            .tolist()
-        )
+        self.top_ai_teams = ai_teams_df.sort_values(
+            by=["rank", "team_name"], ascending=True
+        )[: self.ai_top_n]["team_name"].tolist()
 
     def _init_human_teams(self):
         self.human_team_names = (
             self.rank_data[~self.rank_data["team_name"].str.startswith("[AI]")]
-            .sort_values(by="rank", ascending=True)["team_name"]
+            .sort_values(by=["rank", "team_name"], ascending=True)["team_name"]
             .tolist()
         )
         self.top_human_teams = self.human_team_names[: self.humans_top_n]
@@ -258,7 +256,7 @@ class AIvsHumansEvent(Event):
                 ~self.rank_data["team_name"].str.startswith("[AI]")
                 & ~self.rank_data["team_name"].isin(bad_teams)
             ]
-            .sort_values(by="rank", ascending=True)["team_name"]
+            .sort_values(by=["rank", "team_name"], ascending=True)["team_name"]
             .tolist()
         )
         self.top_human_teams = self.human_team_names[: self.humans_top_n]

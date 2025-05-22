@@ -88,11 +88,16 @@ def plot_is_ai_solved_vs_median_human_time(
             ),
             axis=1,
         )
-        df.sort_values(by="is_ai_solved", inplace=True, ascending=False)
-        df.sort_values(
-            by="top_n_human_teams",
-            inplace=True,
-        )
+        df = df.sort_values(
+            [
+                "top_n_human_teams",
+                "is_ai_solved",
+                "median_human_time",
+                "challenge_name",
+            ],
+            ascending=[True, False, True, True],
+            kind="stable",
+        ).reset_index(drop=True)
 
     plt.figure(figsize=(12, 2 * len(select_n_fastest_humans)))
 
@@ -157,7 +162,8 @@ def plot_is_ai_solved_vs_median_human_time_regression(
         if event.teams_data[team_name].total_solves > 0
     ]
 
-    challenge_data = event.challenges_data.copy()
+    challenge_data = event.challenges_data.copy().sort_values(by="name")
+
     data = []
     for _, row in challenge_data.iterrows():
         if row["category"] == "OSINT":
@@ -231,11 +237,16 @@ def plot_is_ai_solved_vs_median_human_time_regression(
             ),
             axis=1,
         )
-        df.sort_values(by="is_ai_solved", inplace=True, ascending=False)
-        df.sort_values(
-            by="top_n_human_teams",
-            inplace=True,
-        )
+        df = df.sort_values(
+            [
+                "top_n_human_teams",
+                "is_ai_solved",
+                "median_human_time",
+                "challenge_name",
+            ],
+            ascending=[True, False, True, True],
+            kind="stable",
+        ).reset_index(drop=True)
 
     # Create vertically stacked subplots
     n_plots = len(select_n_fastest_humans)
