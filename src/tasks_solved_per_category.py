@@ -1,5 +1,6 @@
 # %%
 from loguru import logger
+
 from src.data import ca_AI_interactions_data, ca_challenges_data
 
 # %%
