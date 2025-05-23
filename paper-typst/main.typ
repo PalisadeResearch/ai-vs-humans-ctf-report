@@ -175,7 +175,7 @@ Concretely, we follow #cite(<kwa2025measuringaiabilitycomplete>, form: "prose") 
 
 #figure(
   image("plots/is_ai_solved_vs_median_human_time_regression_CyberApocalypse.svg", width: 100%),
-  caption: [50%-task-completion time horizon calculation based on _Cyber Apocalypse_ data #tododmv[fix inconsistent caption font size] #tododmv[drop spines https://dynomight.net/axes/] #tododmv[the chart's title should live in the caption]],
+  caption: [50%-task-completion time horizon calculation based on _Cyber Apocalypse_ data (top 1% human teams)],
 ) <average_solve_time>
 
 //TODO: get a real difficulties visual/table and percentage solved by AI.

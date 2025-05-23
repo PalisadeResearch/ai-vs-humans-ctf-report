@@ -74,7 +74,7 @@ build paper-typst/plots/is_ai_solved_vs_median_human_time_regression_AI_vs_Human
   figure_name = is_ai_solved_vs_median_human_time_regression_aivshum_detailed
 
 build paper-typst/plots/is_ai_solved_vs_median_human_time_regression_CyberApocalypse.svg: generate_figure src/time_horizon.py | .venv
-  figure_name = is_ai_solved_vs_median_human_time_regression_ca
+  figure_name = is_ai_solved_vs_median_human_time_regression_ca --no-title
 
 build paper-typst/plots/is_ai_solved_vs_median_human_time_regression_CyberApocalypse_detailed.svg: generate_figure src/time_horizon.py | .venv
   figure_name = is_ai_solved_vs_median_human_time_regression_ca_detailed

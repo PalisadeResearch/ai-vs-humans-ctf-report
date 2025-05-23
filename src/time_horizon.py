@@ -151,7 +151,9 @@ def plot_is_ai_solved_vs_median_human_time(
 
 
 def plot_is_ai_solved_vs_median_human_time_regression(
-    event: Event, select_n_fastest_humans: list[float | None] | None = None
+    event: Event,
+    select_n_fastest_humans: list[float | None] | None = None,
+    show_title: bool = True,
 ):
     if select_n_fastest_humans is None:
         select_n_fastest_humans = [None]
@@ -251,13 +253,12 @@ def plot_is_ai_solved_vs_median_human_time_regression(
     # Create vertically stacked subplots
     n_plots = len(select_n_fastest_humans)
     fig, axes = plt.subplots(
-        n_plots, 1, figsize=(12, 2 * n_plots if n_plots > 1 else 3), sharex=True
+        n_plots,
+        1,
+        figsize=(12, 2 * n_plots if n_plots > 1 else 3),
+        sharex=True,
+        squeeze=False,
     )
-    if n_plots == 1:
-        axes = [axes]  # Make axes iterable when there's only one subplot
-
-    # Add shared y label
-    fig.supylabel("Probability of AI Solving")
 
     # Plot each group in its own subplot
     for idx, n in enumerate(select_n_fastest_humans):
@@ -272,14 +273,14 @@ def plot_is_ai_solved_vs_median_human_time_regression(
         solved = subset[subset["is_ai_solved"]]
         not_solved = subset[~subset["is_ai_solved"]]
 
-        axes[idx].scatter(
+        axes[idx, 0].scatter(
             solved["median_human_time"],
             solved["is_ai_solved"],
             alpha=0.5,
             label="Challenges AI could solve" if idx == 0 else None,
             color="green",
         )
-        axes[idx].scatter(
+        axes[idx, 0].scatter(
             not_solved["median_human_time"],
             not_solved["is_ai_solved"],
             alpha=0.5,
@@ -295,7 +296,7 @@ def plot_is_ai_solved_vs_median_human_time_regression(
         pred_probs = model.predict_proba(time_points.reshape(-1, 1))[:, 1]
 
         # Convert back to original scale for plotting
-        axes[idx].plot(
+        axes[idx, 0].plot(
             np.exp(time_points),
             pred_probs,
             "--",
@@ -308,13 +309,15 @@ def plot_is_ai_solved_vs_median_human_time_regression(
         threshold_time = np.exp(threshold_time)  # convert back to hours
 
         if X.min() < np.log(threshold_time) < X.max():
-            axes[idx].axvline(x=threshold_time, color="gray", linestyle=":", alpha=0.5)
+            axes[idx, 0].axvline(
+                x=threshold_time, color="gray", linestyle=":", alpha=0.5
+            )
             # Format time string
             if threshold_time < 1:  # less than an hour
                 time_str = f"{threshold_time * 60:.1f}min"
             else:
                 time_str = f"{threshold_time:.1f}h"
-            axes[idx].annotate(
+            axes[idx, 0].annotate(
                 f"50% at {time_str}",
                 xy=(threshold_time, 0.5),
                 xytext=(10, 10),
@@ -326,33 +329,39 @@ def plot_is_ai_solved_vs_median_human_time_regression(
             )
 
         # Customize subplot
-        axes[idx].set_xscale("log")
+        axes[idx, 0].set_xscale("log")
         if idx == n_plots - 1:  # Only show xlabel on bottom subplot
-            axes[idx].set_xlabel("Median Human Solve Time")
-        axes[idx].grid(True, alpha=0.3)
-        axes[idx].set_ylim(-0.1, 1.1)
-        axes[idx].set_yticks([0, 0.5, 1])
-        axes[idx].set_xticks(
+            axes[idx, 0].set_xlabel("Median Human Solve Time")
+        axes[idx, 0].grid(True, alpha=0.3)
+        axes[idx, 0].set_ylim(-0.1, 1.1)
+        axes[idx, 0].set_yticks([0, 0.5, 1])
+        axes[idx, 0].set_xticks(
             [5 / 60, 10 / 60, 30 / 60, 1, 2, 4, 10, 40],
             ["5 min", "10 min", "30 min", "1 h", "2 h", "4 h", "10 h", "40 h"],
         )
-        axes[idx].set_title(
-            "Time estimates based on "
-            + (
-                f"top {n * 100}% ({list(subset['selected_top_teams_count'])[0]}) "
-                if n is not None
-                else f"all ({len(selected_human_team_names)}) "
+        axes[idx, 0].minorticks_off()
+        # Conditionally set title
+        if show_title:
+            axes[idx, 0].set_title(
+                "Time estimates based on "
+                + (
+                    f"top {n * 100}% ({list(subset['selected_top_teams_count'])[0]}) "
+                    if n is not None
+                    else f"all ({len(selected_human_team_names)}) "
+                )
+                + "human teams"
             )
-            + "human teams"
-        )
 
-    # Add single legend at figure level
-    fig.legend(
-        loc="upper right",
-        facecolor="white",
-        framealpha=0.8,
-        fontsize=12,
-    )
+        if idx == 0:
+            axes[idx, 0].legend()
+
+        for spine in axes[idx, 0].spines.values():
+            spine.set_visible(False)
+
+    if n_plots == 1:
+        plt.ylabel("Probability of AI Solving")
+    else:
+        fig.supylabel("Probability of AI Solving")
 
     plt.tight_layout()
 
@@ -373,17 +382,21 @@ FIGURE_FUNCTIONS = {
         ca_event, select_n_fastest_humans=[10, 100, 500, None]
     ),
     # Regression plots
-    "is_ai_solved_vs_median_human_time_regression_aivshum": lambda: plot_is_ai_solved_vs_median_human_time_regression(
-        ai_vs_hum_event
+    "is_ai_solved_vs_median_human_time_regression_aivshum": lambda show_title=True: plot_is_ai_solved_vs_median_human_time_regression(
+        ai_vs_hum_event, show_title=show_title
     ),
-    "is_ai_solved_vs_median_human_time_regression_aivshum_detailed": lambda: plot_is_ai_solved_vs_median_human_time_regression(
-        ai_vs_hum_event, select_n_fastest_humans=[0.01, 0.1, 0.5, None]
+    "is_ai_solved_vs_median_human_time_regression_aivshum_detailed": lambda show_title=True: plot_is_ai_solved_vs_median_human_time_regression(
+        ai_vs_hum_event,
+        select_n_fastest_humans=[0.01, 0.1, 0.5, None],
+        show_title=show_title,
     ),
-    "is_ai_solved_vs_median_human_time_regression_ca": lambda: plot_is_ai_solved_vs_median_human_time_regression(
-        ca_event, select_n_fastest_humans=[0.01]
+    "is_ai_solved_vs_median_human_time_regression_ca": lambda show_title=True: plot_is_ai_solved_vs_median_human_time_regression(
+        ca_event, select_n_fastest_humans=[0.01], show_title=show_title
     ),
-    "is_ai_solved_vs_median_human_time_regression_ca_detailed": lambda: plot_is_ai_solved_vs_median_human_time_regression(
-        ca_event, select_n_fastest_humans=[0.005, 0.01, 0.1, None]
+    "is_ai_solved_vs_median_human_time_regression_ca_detailed": lambda show_title=True: plot_is_ai_solved_vs_median_human_time_regression(
+        ca_event,
+        select_n_fastest_humans=[0.005, 0.01, 0.1, None],
+        show_title=show_title,
     ),
 }
 
@@ -396,18 +409,28 @@ def main():
         "figure_name",
         help=f"Name of the figure to generate. Available figures: {', '.join(FIGURE_FUNCTIONS.keys())}",
     )
+    parser.add_argument(
+        "--no-title",
+        action="store_true",
+        help="Hide the title of the plot (currently only affects 'is_ai_solved_vs_median_human_time_regression_ca').",
+    )
 
     args = parser.parse_args()
 
-    figure_name = args.figure_name
-
-    if figure_name not in FIGURE_FUNCTIONS:
-        logger.error(f"Unknown figure name '{figure_name}'")
+    if args.figure_name not in FIGURE_FUNCTIONS:
+        logger.error(f"Unknown figure name '{args.figure_name}'")
         logger.error(f"Available figures: {', '.join(FIGURE_FUNCTIONS.keys())}")
         sys.exit(1)
 
-    # Call the appropriate function to generate the figure
-    FIGURE_FUNCTIONS[figure_name]()
+    show_title = not args.no_title
+
+    figure_func = FIGURE_FUNCTIONS[args.figure_name]
+
+    # Try to pass the show_title flag. If the function doesn't accept it, fall back.
+    try:
+        figure_func(show_title=show_title)
+    except TypeError:
+        figure_func()
 
     # Save the figure to stdout
     plt.savefig(sys.stdout.buffer, format="svg", bbox_inches="tight")
