@@ -14,4 +14,6 @@
         "notebook.source.fixAll": "explicit",
         "notebook.source.organizeImports": "explicit"
     },
+    "tinymist.formatterMode": "typstyle",
+    "tinymist.systemFonts": false,
 }

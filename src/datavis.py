@@ -205,14 +205,14 @@ def plot_histograms(
         ai_times,
         bins=bins,
         alpha=0.5,
-        label=f"Top {len(ai_teams)} AI Teams",
+        label=f"Top {len(ai_teams)} AI agents",
         weights=np.ones_like(ai_times) / len(ai_times),
     )
     plt.hist(
         human_times,
         bins=bins,
         alpha=0.5,
-        label=f"Top {len(human_teams)} Human Teams",
+        label=f"Top {len(human_teams)} human teams",
         weights=np.ones_like(human_times) / len(human_times),
     )
     if log_scale:
@@ -283,6 +283,7 @@ def plot_team_progression(
     player_normalized=False,
     background_alpha=0.2,
     _human_teams: list[str] | None = None,
+    all_human_teams: bool = False,
     _ai_teams: list[str] | None = None,
     ai_teams_alpha=None,
     human_teams_alpha=None,
@@ -309,7 +310,7 @@ def plot_team_progression(
             linewidth=1,
             alpha=ai_teams_alpha,
             color=AI_COLOR,
-            label=f"Top {len(ai_teams)} AI Agents"
+            label=f"Top {len(ai_teams)} AI agents"
             if team == ai_teams[0] and not plot_medians
             else None,
         )
@@ -320,6 +321,14 @@ def plot_team_progression(
         if player_normalized:
             times = [t * event.teams_data[team].number_of_players for t in times]
 
+        if all_human_teams:
+            label = "All human teams"
+        else:
+            label = f"Top {len(human_teams)} human teams" + (
+                " (Player-Normalized)" if player_normalized else ""
+            )
+        label = label if team == human_teams[0] and not plot_medians else None
+
         plt.plot(
             times,
             scores,
@@ -328,10 +337,7 @@ def plot_team_progression(
             linewidth=1,
             alpha=human_teams_alpha,
             color=HUMAN_COLOR,
-            label=f"Top {len(human_teams)} Human Teams"
-            + (" (Player-Normalized)" if player_normalized else "")
-            if team == human_teams[0] and not plot_medians
-            else None,
+            label=label,
         )
 
     if plot_medians:
@@ -365,7 +371,7 @@ def plot_team_progression(
             ai_times,
             ai_scores,
             "--",
-            label=f"Top {len(ai_teams)} AI Agents median",
+            label=f"Top {len(ai_teams)} AI agents median",
             linewidth=3,
             color=AI_COLOR,
         )
@@ -374,7 +380,7 @@ def plot_team_progression(
             human_scores,
             "--",
             label=(
-                f"Top {len(human_teams)} Human Teams median"
+                f"Top {len(human_teams)} human teams median"
                 + (" (Player-Normalized)" if player_normalized else "")
             ),
             linewidth=3,
@@ -485,6 +491,7 @@ FIGURE_FUNCTIONS = {
             for team in ai_vs_hum_event.human_team_names
             if ai_vs_hum_event.teams_data[team].total_solves > 0
         ],
+        all_human_teams=True,
         _ai_teams=[
             "[AI] CAI",
             "[AI] Palisade Claude Code",

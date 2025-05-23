@@ -1,7 +1,9 @@
 #import "@preview/drafting:0.2.1": margin-note, set-page-properties
 
-#set text(size: 10pt)
+// #set text(size: 10pt)
 #set page(numbering: "1")
+#set text(font: "New Computer Modern", lang: "en")
+#set heading(numbering: "1.1")
 
 #show table.cell.where(y: 0): strong
 #set table(
@@ -24,49 +26,49 @@
 #let todoap(body) = margin-note(stroke: red)[#text(body, size: 7pt)] // Comments made by Artem
 #let todomt(body) = margin-note(stroke: green)[#text(body, size: 7pt)] //Comments made by Malika
 
-#text(17pt, [*Evaluating AI cyber capabilities with crowdsoursed elicitation*])
 
+#align(center)[
+  #text(2em)[
+    Evaluating AI cyber capabilities\ with crowdsourced elicitation
+  ]
 
-*Artem Petrov, #footnote[Correspondence to #link("mailto:artem.petrov@palisaderesearch.org") CC #link("mailto:ctf-event@palisaderesearch.org")]
-  Dmitrii Volkov* #h(1fr) 2025-04-25
+  #v(-0.75em)
+  #text(0.9em, `https://github.com/palisaderesearch/ai-vs-humans-ctf-report`)
+  #v(0.25em)
 
-#v(12pt)
+  #grid(
+    columns: (1fr, 1fr),
+    [Artem Petrov#footnote[Correspondence to #link("mailto:artem.petrov@palisaderesearch.org", `artem.petrov@palisaderesearch.org`) CC #link("mailto:ctf-event@palisaderesearch.org", `ctf-event@palisaderesearch.org`)]],
+    [Dmitrii Volkov],
+  )
 
+  May 25, 2025
+]
 
+#pad(
+  x: 3em,
+  top: 1em,
+  bottom: 0.4em,
+  [
+    #align(center)[*Abstract*]
+    #set par(justify: true)
+    As AI systems become increasingly capable, understanding their offensive cyber potential is critical for informed governance and responsible deployment. However, it's hard to accurately bound their capabilities, and some prior evaluations dramatically underestimated them.
 
-//TODO:
-// - reference the repo with data. "we release all data and source code for this paper at this link: link"
+    The art of extracting maximum task-specific performance from AIs is called "AI elicitation", and today's safety organizations typically conduct it in-house. In this paper, we explore crowdsourcing elicitation efforts as an alternative to in-house elicitation work.
 
+    We host open-access AI tracks at two Capture The Flag (CTF) competitions: _AI vs. Humans_ (400 teams) and _Cyber Apocalypse_ (8000 teams). The AI teams achieve outstanding performance at both events, ranking top-5% and top-10% respectively for a total of \$7500 in bounties.
 
-// #block(width: 80%)
-  // #align(left)
-      // == v2
-      // We organized a first of a kind Capture The Flag (CTF) event where AI developers and researchers competed against each other and human hackers. 6 AI teams joined in, one of which beat our best-effort approach. This shows how crowdsourcing can help with underelicitation.
+    This impressive performance suggests that open-market elicitation may offer an effective complement to in-house elicitation. We propose elicitation bounties as a practical mechanism for maintaining timely, cost-effective situational awareness of emerging AI capabilities.
 
-      // AIs ranked *top-13%* among teams that captured at least one flag, *while being as fast as top multi-person human teams*. AIs solved Crypto and Reversing challenges of the "medium" level. Our setup allows us to report first ever 50%-task-completion time horizon for cyber #tododmv[I feel confused reading this]. It is on the order of 1 hour, which is consistent with METR's estimate #cite(<kwa2025measuringaiabilitycomplete>) for general AI performance.
-
-      // We also examine AI performance on another CTF event - CyberApocalypse, where it achieves top-21% score.
-
-      // *v3 *
-
-As AI systems become increasingly capable, understanding their offensive cyber potential is critical for informed governance and responsible deployment. However, it's hard to accurately bound their capabilities, and some prior evaluations dramatically underestimated them.
-
-The art of extracting maximum task-specific performance from AIs is called "AI elicitation", and today's safety organizations typically conduct it in-house. In this paper, we explore crowdsourcing elicitation efforts as an alternative to in-house elicitation work.
-
-We host open-access AI tracks at two Capture The Flag (CTF) competitions: _AI vs. Humans_ (400 teams) and _Cyber Apocalypse_ (4000 teams). The AI teams achieve outstanding performance at both events, ranking top-13% and top-21% respectively for a total of \$7500 in bounties.
-
-This impressive performance suggests that open-market elicitation may offer an effective complement to in-house elicitation. We propose elicitation bounties as a way forward for timely cost-effective awareness of AI capabilities.
-
-Another advantage of open elicitations is the option to collect human performance data at scale. Applying METR's methodology #cite(<kwa2025measuringaiabilitycomplete>), we found that AI agents can reliably solve cyber challenges requiring one hour or less of effort from a median human participant.
-
-
-#set heading(numbering: "1.")
+    Another advantage of open elicitations is the option to collect human performance data at scale. Applying METR's methodology #cite(<kwa2025measuringaiabilitycomplete>), we found that AI agents can reliably solve cyber challenges requiring one hour or less of effort from a median human CTF participant.
+  ],
+)
 
 = Introduction
 
 It is important to know if an AI model has capabilities to inflict substantial damage in the hands of a motivated malicious actor.
 
-However, many prior evaluations were shown to have underestimated AI capabilities (@related-work). Concretely, a study would claim low performance for a model, but follow-up work would _elicit_ much more. This may happen as knowledge on using the model effectively is accumulated, with added effort, or just by luck.
+However, many prior capability evaluations were shown to have underestimated AIs (@related-work). Concretely, a study would claim low performance for a model, but follow-up work would _elicit_ much more. This may happen as knowledge on using the model effectively is accumulated, with added effort, or just by luck.
 
 To mitigate these effects and reduce the "evals gap" #cite(<apollo-research-evals-gap>), we propose crowdsourcing elicitation efforts: letting different teams compete on getting maximum AI performance on a task.
 
@@ -85,24 +87,11 @@ There are indications that the offensive cyber capabilities of frontier AI model
 
 For example, while Meta's CyberSecEval 2 #cite(<bhatt2024cyberseceval2widerangingcybersecurity>) originally reported 5% buffer overflow and 24% advanced memory corruption success rates, #cite(<projectzeroProjectNaptimeEvaluating2024>, form: "prose")'s _Project Naptime_ boosted performance to 100% and 76% respectively with straightforward agent modifications.
 
-Similarly, while a popular cyber benchmark InterCode-CTF #cite(<yang2023language>) reported up to 40% success rates, #cite(<turtayev2024hackingctfsplainagents>) achieved 95% in just 5 weeks of elicitation.
+Similarly, while a popular cyber benchmark InterCode-CTF #cite(<yang2023language>) reported up to 40% AI success rates with GPT-4o, #cite(<turtayev2024hackingctfsplainagents>) achieved 92% in just 5 weeks of elicitation #footnote[While the paper's headline result is 95%, we cite the ablation using GPT-4o only.].
 
 These examples point to a theme: sometimes modifying the agent harness can unlock new capabilities. To make evaluations robust and reduce the reliance on any single team’s assumptions, the field may benefit from crowdsourcing elicitation.
 
 = _AI vs. Humans_ CTF
-
-The first event in our series was the _AI vs. Humans_ CTF, organized in collaboration with _Hack The Box_ on 14-16 March 2025 #footnote[https://ctf.hackthebox.com/event/details/ai-vs-human-ctf-challenge-2000
-]. This event was the first to publicly pit fully autonomous AI agents against experienced human teams in real-time, offering 20 cybersecurity challenges over 48 hours. We offered a prize pool of 7500\$ to incentivize participation and effort.
-
-For the pilot event, we wanted to make it as easy as possible for the AI teams to compete. To that end, we used challenges in the cryptography and reverse engineering, as these areas are the easiest to build a harness for. The challenges could be completed locally, without the need for dynamic interactions with external machines.
-
-We calibrated the challenge difficulty based on preliminary evaluations of our React&Plan agent #cite(<turtayev2024hackingctfsplainagents>) on older _Hack The Box_-style tasks such that the AI could solve \~50% of tasks.
-
-See @agent_designs[Appendix] for the submitted agents' designs, and @detailed_data_appendix[Appendix] for additional performance data.
-
-We make all performance data available at #tododmv[TODO PUBLIC REPO LINK].
-
-== Absolute standings
 
 #figure(
   table(
@@ -113,31 +102,52 @@ We make all performance data available at #tododmv[TODO PUBLIC REPO LINK].
     [*Leaderboard rank* #footnote[In case of teams solving an equal number of challenges, the faster teams rank higher on the leaderboard.]],
     ..csv("tables/ai_team_standings_AI_vs_Humans_CTF.csv").flatten().slice(3),
   ),
-  caption: [AI agents standings.  #footnote[The full leaderboard, including human teams, is available at https://ctftime.org/event/2723]],
+  caption: [AI agents standings for _AI vs. Humans_ #footnote[The full leaderboard, including human teams, is available at https://ctftime.org/event/2723.]],
+  placement: auto,
 ) <ai_vs_hum_standings>
 
-Overall 403 teams registered for the event, of which 158 solved at least 1 challenge: 152 human teams and 6 AI teams. The _Palisade Research_ team ran 2 AI agents during this event: an adaptation of Claude Code for CTFs and a React&Plan agent.
 
-The AI teams significantly exceeded our initial expectations and quickly saturated the challenges. The best AI team achieved top-13% performance/* among teams that solved at least 1 challenge*/, and four out of seven agents completed 19/20 challenges (@ai_vs_hum_standings). This highlights the power of crowdsourcing.
+The first event in our series was the _AI vs. Humans_ CTF, organized in collaboration with Hack The Box on 14-16 March 2025 #footnote[https://ctf.hackthebox.com/event/details/ai-vs-human-ctf-challenge-2000
+]. This event was the first to publicly pit fully autonomous AI agents against experienced human teams in real-time, offering 20 cybersecurity challenges over 48 hours. We offered a prize pool of 7500\$ to incentivize participation and effort.
+
+For the pilot event, we wanted to make it as easy as possible for the AI teams to compete. To that end, we used cryptography and reverse engineering challenges which could be completed locally, without the need for dynamic interactions with external machines.
+
+We calibrated the challenge difficulty based on preliminary evaluations of our React&Plan agent #cite(<turtayev2024hackingctfsplainagents>) on older Hack The Box-style tasks such that the AI could solve \~50% of tasks.
+
+See @agent_designs[Appendix] for the submitted agents' designs. All event performance data is available at https://github.com/palisaderesearch/ai-vs-humans-ctf-report.
+
+== Absolute standings
+
+Overall 403 teams registered for the event, of which 158 solved at least 1 challenge: 152 human teams and 6 AI teams. The Palisade Research team ran 2 AI agents during this event: a Claude Code adapted CTFs and a React&Plan agent.
+
+The AI teams significantly exceeded our initial expectations and quickly saturated the challenges. The best AI team achieved top-5% performance (top-13% among teams solving at least one challenge), and most AI teams outperformed most humans (@ai_vs_hum_progression_all). Four out of seven agents completed 19/20 challenges. This highlights the power of crowdsourcing.
 
 == Speed
 
 #figure(
+  image("plots/team_progression_AI_vs_Humans_CTF_aligned_top7_ai_top151_human.svg", width: 100%),
+  caption: [Challenges solved over time for all teams, _AI vs. Humans_ CTF],
+  placement: top,
+) <ai_vs_hum_progression_all>
+
+#figure(
   image("plots/team_progression_AI_vs_Humans_CTF_aligned.svg", width: 100%),
-  caption: [Number of challenges solved over time for the _AI vs Humans_ CTF (top teams)],
+  caption: [Challenges solved over time for top teams, _AI vs. Humans_ CTF],
+  placement: top,
 ) <ai_vs_hum_progression>
 
-One of the core advantages AIs typically hold over humans is speed. As shown in @ai_vs_hum_progression, AI teams performed on par with top human teams in both speed across almost all tasks.
+One of the core advantages AIs typically hold over humans is speed. As shown in @ai_vs_hum_progression, AI teams performed on par with top multi-human teams.
 
-We were impressed the humans could match AI speeds, and reached out to the top human teams for comments. Participants attributed their ability to solve the challenges quickly to their extensive experience as professional CTF players, noting that they were familiar with the standard techniques commonly used to solve such problems. One participant, for example, said that he was "playing on a couple of internationally-ranked teams with years of experience".
+We were impressed the humans could match AI speeds, and reached out to the human teams for comments. Participants attributed their ability to solve the challenges quickly to their extensive experience as professional CTF players, noting that they were familiar with the standard techniques commonly used to solve such problems. One participant, for example, said that he was "playing on a couple of internationally-ranked teams with years of experience".
 
 // TODO: add appendix showcasing "average human team speed" to highlight the exceptionalism of the top teams
 
+\
 = _Cyber Apocalypse _
 
-On 21–26 March 2025 we hosted an AI track at _Cyber Apocalypse_ #footnote[https://www.hackthebox.com/events/cyber-apocalypse-2025], an annual _Hack The Box_ competition that attracts a large number of human participants and offers a diverse set of challenges. #tododmv[How many?] human teams registered for the event, and 3994 solved at least one challenge.
+On 21–26 March 2025 we hosted an AI track at _Cyber Apocalypse_ #footnote[https://www.hackthebox.com/events/cyber-apocalypse-2025], an annual Hack The Box competition that attracts a large number of human participants and offers a diverse set of challenges. 8129 human teams (18369 players) registered for the event, and 3994 teams solved at least one challenge.
 
-We invited the AI teams from the _AI vs. Humans_ CTF event to participate in this competition to evaluate their performance in a different environment. Ultimately, two AI teams took part, collectively deploying four AI agents. The best AI agent achieved top-21% performance among teams that solved at least one challenge (@ca_standings).
+We invited the AI teams from the _AI vs. Humans_ CTF event to participate in this competition to evaluate their performance in a different environment. Ultimately, two AI teams took part, collectively deploying four AI agents. The best AI agent achieved top-10% performance (top-21% among teams solving at least one challenge, @ca_standings).
 
 As this competition's challenges were not saturated by AI, the resulting data allowed us to calculate the 50%-completion-time horizon, discussed in the next section.
 
@@ -147,35 +157,37 @@ As this competition's challenges were not saturated by AI, the resulting data al
   table(
     columns: 3,
     align: (left, center, center),
-    [*Agent*],
-    [*Challenges solved*],
-    [*Leaderboard rank*],
+    [*Agent*], [*Challenges solved*], [*Leaderboard rank*],
     [CAI], [20 / 62], [859],
-    [Palisade Claude Code #footnote[_Palisade’s_ submissions performed poorly because our harness was not designed to interact with external machines, while about 2/3 of challenges required it.]], [5 / 62], [2496],
+    [Palisade Claude Code #footnote[Palisade's submissions performed poorly because our harness was not designed to interact with external machines, while about 2/3 of challenges required it.]],
+    [5 / 62],
+    [2496],
+
     [Palisade Aider], [3 / 62], [2953],
     [Palisade React&Plan], [2 / 62], [3199],
   ),
-  caption: [AI agents standings for Cyber Apocalypse #footnote[The full leaderboard, including human teams, is available at https://ctftime.org/event/2674]],
+  caption: [AI agents standings for _Cyber Apocalypse_ CTF #footnote[The full leaderboard, including human teams, is available at https://ctftime.org/event/2674]],
   placement: auto,
 ) <ca_standings>
 
 #figure(
   image("plots/team_progression_CyberApocalypse_aligned.svg", width: 100%),
-  caption: [Number of challenges solved over time for _Cyber Apocalypse_ CTF],
+  caption: [Challenges solved over time for top teams, _Cyber Apocalypse_ CTF],
   placement: auto,
 ) <ca_progression>
 
 = Ability to complete long tasks
 
-Modern AIs are known to struggle with tasks that require staying coherent on long timescales. A recent study by METR has shown that modern AIs can reliably complete tasks requiring up to 1 hour of human expert effort in the domain of ML research #tododmv[is this true?].
+Modern AIs are known to struggle with tasks that require staying coherent on long timescales. A recent study by METR has shown that modern AIs can reliably complete tasks requiring up to 1 hour of human expert effort in software engineering @kwa2025measuringaiabilitycomplete.
 
-Using the _Cyber Apocalypse_ data, we reproduce this analysis for offensive cyber tasks and reach a similar outcome: AI can solve challenges requiring \~1 hour of effort from a median CTF participant.
+We measure METR's 50%-task-completion time horizon metric for offensive cyber tasks. This metric shows the time humans typically take to complete a task that AI models can complete in 50% of cases.
 
-Concretely, we follow #cite(<kwa2025measuringaiabilitycomplete>, form: "prose") by measuring the 50%-task-completion time horizon. This metric shows the time humans typically take to complete a task that AI models can complete in 50% of cases. See @equivalent_human_effort[Appendix] for details.
+Using the _Cyber Apocalypse_ data, we find that AI can solve challenges requiring \~1 hour of effort from a median CTF participant (@average_solve_time). See @equivalent_human_effort[Appendix] for details.
 
 #figure(
   image("plots/is_ai_solved_vs_median_human_time_regression_CyberApocalypse.svg", width: 100%),
-  caption: [50%-task-completion time horizon calculation based on _Cyber Apocalypse_ data (top 1% human teams)],
+  caption: [50%-task-completion time horizon, _Cyber Apocalypse_ (top 1% human teams)],
+  placement: auto,
 ) <average_solve_time>
 
 //TODO: get a real difficulties visual/table and percentage solved by AI.
@@ -228,68 +240,73 @@ Concretely, we follow #cite(<kwa2025measuringaiabilitycomplete>, form: "prose") 
 
 Accurately assessing the offensive capabilities of AI systems remains a major challenge for policymakers and researchers. Relying solely on evaluations conducted by a single team may be insufficient. To better understand the highly dynamic nature of AI capabilities, we need robust, open-market, real-time evaluations.
 
-Toward this goal, we hosted a first-of-its-kind #footnote[The only other similar competition we know of was held as part of DARPA’s AI Cyber Challenge (AIxCC), it had a different focus on advancing AI for cyber defense. See: https://aicyberchallenge.com] _AI vs. Humans _CTF competition, inviting AI developers to directly compete against each other and against human teams. We also analyzed AI performance in _Cyber Apocalypse_, a large CTF with thousands of participants.
+Toward this goal, we hosted a first-of-its-kind #footnote[The only other similar competition we know of was held as part of DARPA's AI Cyber Challenge (AIxCC), it had a different focus on advancing AI for cyber defense. See: https://aicyberchallenge.com] _AI vs. Humans _CTF competition, inviting AI developers to directly compete against each other and against human teams. We also analyzed AI performance in _Cyber Apocalypse_, a large CTF with thousands of participants.
 
-Our results suggest that crowdsourcing elicitation is a promising approach to assessing AI capabilities: crowdsourced AI performance wildly exceeded our initial expectations, with AIs saturating the _AI vs. Humans_ CTF for a total bounty of only \$7500.
+Our results suggest that crowdsourcing elicitation is a promising approach to assessing AI capabilities: crowdsourced AI performance wildly exceeded our initial expectations, with AIs saturating the _AI vs. Humans_ CTF for a prize pool of only \$7500.
 
-Hosting head-to-head competitions with human teams lets us report a more interpretable and policy-relevant signal than traditional benchmark scores. In _Cyber Apocalypse_, the best AI outperforms 79% humans, and can reliably solve tasks requiring up to one hour of human effort.
+Hosting head-to-head competitions with human teams lets us report a more interpretable and policy-relevant signal than traditional benchmark scores. In _Cyber Apocalypse_, the best AI outperforms 90% humans, and solves tasks requiring up to one hour of human effort.
 
-We suggest several ways in which crowdsourcing can offer practical value for different stakeholders:
+We suggest several ways in which crowdsourcing can offer value for different stakeholders:
 
 - *For policy and R&D agencies*: Hundreds of CTFs are hosted yearly, providing a rich source of evaluation data. What is missing is targeted support for AI-focused tracks. Modest funding for prizes and coordination could establish a sustainable evaluation ecosystem. Once popularized, these tracks may require little or no ongoing funding.
 
-- *For frontier AI labs*: Open-market evaluations offer a fast, low-cost way to uncover overlooked capabilities and validate internal assessments.
+- *For frontier AI labs*: Open-market evaluations offer a fast, low-cost way to uncover overlooked capabilities and validate internal evaluations.
 
-- *For CTF Organizers*: Adding an AI track can increase visibility, attract participants, and introduce new research and media interest. Our team has experience supporting these efforts and is available to assist with design and execution.
+- *For CTF Organizers*: Adding an AI track can increase visibility, attract participants, and introduce new research and media interest. Palisade is happy to assist with this.
 
-As AI systems grow in complexity, evaluation must keep pace. Moreover, evaluation methods should be clear enough to guide policy, and flexible enough to reveal what today’s systems can actually do. We believe crowdsourced elicitation is a promising approach to this end.
+As AI systems' capabilities grow, evaluation must keep pace. Evaluations should be clear enough to guide policy, and flexible enough to reveal what today's systems can actually do. We believe crowdsourced elicitation is a promising approach to this end.
 
 #set heading(numbering: none)
 
 = Acknowledgements
 
-We thank our _Palisade Research_ colleagues: Reworr, who helped set up and run the Claude Code agent, achieving second place among AI teams; Rustem Turtayev, who helped set up the React&Plan agent; and Alexander Bondarenko, for experimenting with the Aider agent.
+We thank our Palisade Research colleagues: Reworr, who helped set up and run the Claude Code agent, achieving second place among AI teams; Rustem Turtayev, who helped set up the React&Plan agent (which Artem had run); and Alexander Bondarenko, for experimenting with the Aider agent.
 
-// I promised to include these for people who filled out the feedback form
+We thank Malika Toqmadi for help editing this manuscript.
+
 We thank the AI teams who designed agents for this competition: CAI (Víctor Mayoral-Vilches, Endika Gil-Uriarte, Unai Ayucar-Carbajo, Luis Javier Navarrete-Lozano, María Sanz-Gómez, Lidia Salas Espejo, Martiño Crespo-Álvarez), Imperturbable (James Lucassen), FCT, Cyagent, and Project S1ngularity.
 
-We are grateful to _Hack The Box_ for providing challenges for the _AI vs Humans_ CTF event, supporting us in organizing this event, and providing data for our analysis. This event would not happen without their help!
+We are grateful to Hack The Box for providing challenges for the _AI vs Humans_ CTF event, supporting us in organizing this event, and providing data for our analysis. This event would not happen without their help!
 
 = Authors' contributions
 
 #table(
-  columns: 3,
-  align: (start, center, center),
-  table.header([Name], [AP], [DV]),
-  [Original idea and methodology], [], [•],
-  [Event organization], [•], [],
-  [Evaluation], [•], [],
-  [Writing and research\ communication], [•], [•],
+  columns: 5,
+  align: (start, center, center, center, center),
+  table.header([Name], [AP], [DV], [Others at Palisade], [Event participants]),
+  [Original idea and methodology], [], [•], [], [],
+  [Event organization], [•], [], [], [],
+  [Running AI agents], [•], [], [•], [•],
+  [Evaluation], [•], [], [], [],
+  [Writing], [•], [•], [], [],
 )
 
-#bibliography("ref.bib", style: "chicago-author-date", title:"References")
+#bibliography("ref.bib", style: "chicago-author-date", title: "References")
 
 #pagebreak()
 
 #set heading(numbering: "A.1")
 #counter(heading).update(0)
 
-= Challenges of recruiting AI teams
+= Recruiting AI teams
 
 #figure(
   table(
     columns: (auto, auto, auto, auto, auto),
     align: left,
-    [#align(center)[*AI team type*]], [*Invited\ by us*], [*Accepted\ invite*], [*Independently\ reached out*], [*CTF\ team names*],
+    [#align(center)[*AI team type*]],
+    [*Invited\ by us*],
+    [*Accepted\ invite*],
+    [*Independently\ reached out*],
+    [*CTF\ team names*],
+
     [Offensive AI startups], [9], [0], [1], [CAI],
     [Researchers], [3], [1], [0], [Cyagent],
     [Frontier Labs], [2], [1], [0], [FCT],
-    [Individuals], [0], [0], [3], [Imperturbable\ Project S1ngularity #tododmv[3 reached out, but 2 participated?]],
+    [Individuals], [0], [0], [3], [Imperturbable\ Project S1ngularity],
   ),
   caption: [AI teams registration flow for the AI vs Humans event],
 ) <registration-flow>
-
-#todomt[this section only focuses on difficulties of recruiting/attracting AI teams to participate in crowdsourcing efforts. I think, it would be beneficial to also discuss whether crowdsourcing work as a method, explaining why we believe crowdsourcing might be a more efficient approach - answering the question in the section's title]
 
 To bootstrap the bounty, we targeted three key groups of AI teams: startups specializing in AI red teaming and penetration testing, researchers who have published on cyber agent design, and frontier AI labs.
 
@@ -299,21 +316,13 @@ We theorize that this lack of engagement may be due to the fact that the startup
 
 On the other hand, several individuals and one offensive AI startup expressed interest in participating as an AI team without receiving a targeted invitation from us. You can see the entire flow in @registration-flow.
 
-This was our first attempt at crowdsourcing in this context, and while it offered valuable insights, we recognize the need for further experimentation — potentially including a higher bounty to better incentivize participation.
-
-= Agent designs <agent_designs>
+= Submitted agent designs <agent_designs>
 
 Below are some of the agent designs used by AI teams.
 
 == CAI
 
 Used a custom harness design they spent about 500 dev-hours on, see #cite(<mayoralvilches2025caiopenbugbountyready>).
-
-== Palisade Claude Code
-
-We adapted Claude Code for solving CTFs by writing a simple initial prompt.
-
-Our claude code ( + Imperturbable enigma + claude code) #tododmv[what does that mean?] // TODO: add their solve rate to appendix
 
 == Imperturbable
 
@@ -326,11 +335,11 @@ From the participant:
   - preventing the model from trying to guess the flag based on semantics
   - making sure the model actually carefully inspects the task before coming up with its strategy
   - recommending particular tools that were easier for the LLM to use.
-
-  You can find the spreadsheet I used to track my progress here:
-
-  https://docs.google.com/spreadsheets/d/1sdMC2AFwZ131vNG-iHyiDL0j2nyqa3gV5fN234QkXxk/edit?usp=sharing
 ]
+
+== Palisade Claude Code
+
+We used an off-the-shelf Claude Code prompted for solving CTF challenges.
 
 == Palisade React&Plan
 
@@ -340,23 +349,19 @@ See @turtayev2024hackingctfsplainagents.
 
 To estimate the human expert effort equivalent to current AI capabilities we follow #cite(<kwa2025measuringaiabilitycomplete>) by measuring the 50%-task-completion time horizon. This is the time humans typically take to complete tasks that AI models can complete with 50% success rate.
 
-_Hack The Box_ estimates difficulty of the challenges by measuring how long it takes a median participant from first accessing the challenge data (by downloading challenge files or starting the docker container) to submitting a flag. We adopt this approach to measure human time spent solving a challenge.
+Hack The Box estimates difficulty of the challenges by measuring how long it takes a median participant from first accessing the challenge data (by downloading challenge files or starting the docker container) to submitting a flag. We adopt this approach to measure human time spent solving a challenge.
 
 When measuring "human expert performance" it is important to know whom we consider an expert. Since both events analyzed in this paper were open to the public, the expertise of participants varied from casuals to professional CTF players.
 
-We can measure the position of the human team on the leaderboard as a measure of its expertise. In @ca_time_horizon_detailed we show how the 50%-task-completion time horizon estimates change, depending on which percentage of top human teams we consider to be the experts.
-
-
+We can measure the position of the human team on the leaderboard as a measure of its expertise. @ca_time_horizon_detailed shows how the 50%-task-completion time horizon estimates change depending on which percentile of the human teams we consider to be experts. The estimates maintain a similar order of magnitude.
 
 // TODO: [nit] Add info on how many flags were submitted without first accessing the files?
 
 // TODO: discuss limitations (not considering time human has access to challenge description; not considering time humans sleep\eat for long challenges) and how we combat them
 
-#tododmv[TODO]
-
 #figure(
   image("plots/is_ai_solved_vs_median_human_time_regression_CyberApocalypse_detailed.svg"),
-  caption: [50%-task-completion time horizon estimates we get, depending on which percentage of top human teams we consider experts for getting the human solve times. Data is from the _Cyber Apocalypse_ event.],
+  caption: [50%-task-completion time horizon estimates, depending on which percentage of top human teams we consider experts for calculating the human solve times (_Cyber Apocalypse_)],
 ) <ca_time_horizon_detailed>
 
 // If have time, add the 50% time horizon vs n top teams plot.
@@ -372,24 +377,3 @@ We can measure the position of the human team on the leaderboard as a measure of
 // = Correcting for player number
 
 // Naive multiplication is bad - it overestimates a lot. Pls do the correct way by calculating time to solve
-
-= Detailed data <detailed_data_appendix>
-
-== Challenges solved by AI per category and difficulty
-
-#tododmv[TODO or drop]
-
-== Top team scores in real time
-
-#tododmv[Fix figures broken by 8dab83a]
-
-#figure(
-  image("plots/team_progression_AI_vs_Humans_CTF_unaligned.svg", width: 100%),
-  caption: [Number of challenges solved over time for _AI vs Humans_ CTF.],
-) <ai_vs_hum_progression_real_time>
-
-== All teams trajectories for _AI vs Humans_ CTF
-#figure(
-  image("plots/team_progression_AI_vs_Humans_CTF_aligned_top7_ai_top151_human.svg", width: 100%),
-  caption: [Number of challenges solved over time fror all teams for _AI vs Humans_ CTF. Top AI Agents outperform almostall human teams.],
-) <ai_vs_hum_progression_real_time>

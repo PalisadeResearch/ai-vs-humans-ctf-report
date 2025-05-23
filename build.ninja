@@ -13,7 +13,7 @@ rule latexmk
   description = Building $out with latexmk
 
 rule typst_compile
-  command = typst compile $in $out
+  command = typst compile --ignore-system-fonts $in $out
 
 build .venv: uv_sync
 
@@ -89,6 +89,7 @@ build figures: phony $
   paper-typst/plots/is_ai_solved_vs_median_human_time_regression_CyberApocalypse.svg $
   paper-typst/plots/is_ai_solved_vs_median_human_time_regression_CyberApocalypse_detailed.svg $
   paper-typst/plots/team_progression_AI_vs_Humans_CTF_unaligned.svg $
+  paper-typst/plots/team_progression_AI_vs_Humans_CTF_aligned_top7_ai_top151_human.svg $
 
 build figures-all: phony $
   paper-typst/plots/team_progression_AI_vs_Humans_CTF_aligned.svg $
