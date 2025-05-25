@@ -310,9 +310,7 @@ def plot_team_progression(
             linewidth=1,
             alpha=ai_teams_alpha,
             color=AI_COLOR,
-            label=f"Top {len(ai_teams)} AI agents"
-            if team == ai_teams[0] and not plot_medians
-            else None,
+            label="AI agents" if team == ai_teams[0] and not plot_medians else None,
         )
 
     for team in human_teams:
@@ -322,7 +320,7 @@ def plot_team_progression(
             times = [t * event.teams_data[team].number_of_players for t in times]
 
         if all_human_teams:
-            label = "All human teams"
+            label = "Human teams"
         else:
             label = f"Top {len(human_teams)} human teams" + (
                 " (Player-Normalized)" if player_normalized else ""
