@@ -6,3 +6,29 @@ __pycache__
 src.egg-info/
 
 dev_personal/
+
+# LaTeX build files
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.idx
+*.ind
+*.ilg
+*.lof
+*.lot
+*.xdv
+*.nav
+*.snm
+*.vrb
+*.figlist
+*.makefile
+*.figlist
+*.fls_latexmk
+
+*.pdf

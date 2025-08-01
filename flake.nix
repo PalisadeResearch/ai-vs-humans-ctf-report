@@ -28,6 +28,7 @@
             typst
             texlive.combined.scheme-medium
             nodePackages.svgo
+            librsvg
             # Nix
             nil
             nixfmt-rfc-style
