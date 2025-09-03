@@ -1,43 +1,43 @@
-%File: main.tex
-\documentclass[letterpaper]{article} % DO NOT CHANGE THIS
-\usepackage[submission]{aaai2026}  % DO NOT CHANGE THIS
-\usepackage{times}  % DO NOT CHANGE THIS
-\usepackage{helvet}  % DO NOT CHANGE THIS
-\usepackage{courier}  % DO NOT CHANGE THIS
-\usepackage[hyphens]{url}  % DO NOT CHANGE THIS
-\usepackage{graphicx} % DO NOT CHANGE THIS
-\urlstyle{rm} % DO NOT CHANGE THIS
-\def\UrlFont{\rm}  % DO NOT CHANGE THIS
-\usepackage{natbib}  % DO NOT CHANGE THIS AND DO NOT ADD ANY OPTIONS TO IT
-\usepackage{caption} % DO NOT CHANGE THIS AND DO NOT ADD ANY OPTIONS TO IT
-\frenchspacing  % DO NOT CHANGE THIS
-\setlength{\pdfpagewidth}{8.5in} % DO NOT CHANGE THIS
-\setlength{\pdfpageheight}{11in} % DO NOT CHANGE THIS
 
-% Additional packages for this paper
-\usepackage{amsmath,amsfonts,amssymb}
-%
-% Keep the \pdfinfo as shown here. There's no need
-% for you to add the /Title and /Author tags.
+\documentclass[sigconf]{acmart}
+
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{caption}
+\usepackage{amsmath,amsfonts}
+
+%%
+%% \BibTeX command to typeset BibTeX logo in the docs
+\AtBeginDocument{%
+  \providecommand\BibTeX{{%
+    Bib\TeX}}}
+
 \pdfinfo{
 /TemplateVersion (2026.1)
 }
 
-\setcounter{secnumdepth}{1} %May be changed to 1 or 2 if section numbers are desired.
+\setcopyright{acmlicensed}
+\copyrightyear{2025}
+\acmYear{2025}
+\acmDOI{10.1145/3733816.3760755}
+
+\acmConference[HAIPS 2025]{1st Workshop on Human-Centered AI Privacy and Security}{Oct 17, 2025}{Taipei, Taiwan}
+\acmISBN{979-8-4007-1905-9/2025/10}
 
 
-
-% Title
-\title{Evaluating AI Cyber Capabilities with Crowdsourced Elicitation}
-\author{
-    Anonymous Submission
-}
-\affiliations{
-}
 
 \begin{document}
 
-\maketitle
+\title{Evaluating AI Cyber Capabilities with Crowdsourced Elicitation}
+
+\author{Artem Petrov}
+\email{artem.petrov@palisaderesearch.org}
+\affiliation{\institution{Palisade Research}\country{USA}}
+
+\author{Dmitrii Volkov}
+\affiliation{\institution{Palisade Research}\country{USA}}
+
+\renewcommand{\shortauthors}{Petrov and Volkov}
 
 \begin{abstract}
 As AI systems become increasingly capable, understanding their offensive cyber potential is critical for informed governance and responsible deployment. However, it's hard to accurately bound their capabilities, and some prior evaluations dramatically underestimated them.
@@ -51,9 +51,34 @@ This impressive performance suggests that open-market elicitation may offer an e
 Another advantage of open elicitations is the option to collect human performance data at scale. Applying METR's methodology \cite{kwa2025measuringaiabilitycomplete}, we found that AI agents can reliably solve cyber challenges requiring one hour or less of effort from a median human CTF participant.
 \end{abstract}
 
-\begin{links}
-    \link{Analysis code and data}{redacted_link}
-    \end{links}
+
+\begin{CCSXML}
+<ccs2012>
+<concept>
+<concept_id>10010147.10010178</concept_id>
+<concept_desc>Computing methodologies~Artificial intelligence</concept_desc>
+<concept_significance>500</concept_significance>
+</concept>
+<concept>
+<concept_id>10002978</concept_id>
+<concept_desc>Security and privacy</concept_desc>
+<concept_significance>500</concept_significance>
+</concept>
+</ccs2012>
+\end{CCSXML}
+
+\ccsdesc[500]{Computing methodologies~Artificial intelligence}
+\ccsdesc[500]{Security and privacy}
+\keywords{AI evaluation, cybersecurity, crowdsourcing, CTF, elicitation}
+
+
+
+\maketitle
+
+\vspace{-0.5em}
+\begin{center}
+\small\url{https://github.com/palisaderesearch/ai-vs-humans-ctf-report}
+\end{center}
 
 \section{Introduction}
 
@@ -63,13 +88,9 @@ However, many prior capability evaluations were shown to have underestimated AIs
 
 To mitigate these effects and reduce the ``evals gap'' \cite{apollo-research-evals-gap}, we propose crowdsourcing elicitation efforts: letting different teams compete on getting maximum AI performance on a task.
 
-
-
 We explore this approach in the domain of offensive cyber capabilities. A classic way to test cyber skills is a Capture The Flag (CTF) competition. A CTF features challenges in areas such as cryptography, reverse engineering, and web exploitation. Each challenge hides a ``flag''---a unique string---that must be found by identifying and exploiting system vulnerabilities.
 
 We hosted two AI CTF tracks: \emph{AI vs. Humans} and \emph{Cyber Apocalypse}, letting AI teams compete against each other and human teams. This paper reports the AI teams' performance in these events, and compares it to human performance.
-
-
 
 \section{Related work} \label{sec:related-work}
 
@@ -77,14 +98,17 @@ There are indications that the offensive cyber capabilities of frontier AI model
 
 For example, while Meta's CyberSecEval 2 \cite{bhatt2024cyberseceval2widerangingcybersecurity} originally reported 5\% buffer overflow and 24\% advanced memory corruption success rates, Project Naptime \cite{projectzeroProjectNaptimeEvaluating2024} boosted performance to 100\% and 76\% respectively with straightforward agent modifications.
 
-Similarly, while a popular cyber benchmark InterCode-CTF \cite{yang2023language} reported up to 40\% AI success rates with GPT-4o, \cite{authors2024} achieved 92\% in just 5 weeks of elicitation.\footnote{While the paper's headline result is 95\%, we cite the ablation using GPT-4o only.}
+Similarly, while a popular cyber benchmark InterCode-CTF \cite{yang2023language} reported up to 40\% AI success rates with GPT-4o, \cite{turtayev2024hackingctfsplainagents} achieved 92\% in just 5 weeks of elicitation.\footnote{While the paper's headline result is 95\%, we cite the ablation using GPT-4o only.}
 
 These examples point to a theme: sometimes modifying the agent harness can unlock new capabilities. To make evaluations robust and reduce the reliance on any single team's assumptions, the field may benefit from crowdsourcing elicitation.
+
+\section{\emph{AI vs. Humans} CTF}
 
 \begin{figure*}[htb]
     \centering
     \includegraphics[width=0.8\textwidth]{plots/team_progression_AI_vs_Humans_CTF_aligned_top7_ai_top151_human.pdf}
     \caption{Challenges solved over time for all teams, \emph{AI vs. Humans} CTF}
+    \Description{Line chart showing challenge progression over time for AI and human teams in the AI vs Humans CTF competition}
     \label{fig:ai_vs_hum_progression_all}
 \end{figure*}
     
@@ -92,17 +116,16 @@ These examples point to a theme: sometimes modifying the agent harness can unloc
     \centering
     \includegraphics[width=0.8\textwidth]{plots/team_progression_AI_vs_Humans_CTF_aligned.pdf}
     \caption{Challenges solved over time for top teams, \emph{AI vs. Humans} CTF}
+    \Description{Line chart showing challenge progression over time for top-performing teams in the AI vs Humans CTF competition}
     \label{fig:ai_vs_hum_progression}
 \end{figure*}
-
-\section{\emph{AI vs. Humans} CTF}
 
 \begin{table*}[h!tb]
 \centering
 \begin{tabular}{lcc}
-\hline
-\textbf{Agent} & \textbf{Challenges solved} & \textbf{Leaderboard rank}\footnotemark \\
-\hline
+\toprule
+\textbf{Agent} & \textbf{Challenges solved} & \textbf{Leaderboard rank}\footnotemark[3] \\
+\midrule
 CAI & 19 / 20 & 20 \\
 Palisade Claude Code & 19 / 20 & 21 \\
 FCT & 19 / 20 & 30 \\
@@ -110,25 +133,27 @@ imperturbable & 19 / 20 & 33 \\
 Cyagent & 18 / 20 & 34 \\
 Project S1ngularity & 14 / 20 & 65 \\
 Palisade React\&Plan & 14 / 20 & 66 \\
-\hline
+\bottomrule
 \end{tabular}
-\caption{AI agents standings for \emph{AI vs. Humans}\footnotemark}
+\caption[AI agents standings for \emph{AI vs. Humans}]{AI agents standings for \emph{AI vs. Humans} \footnotemark[4]}
 \label{tab:ai_vs_hum_standings}
 \end{table*}
-\footnotetext[2]{In case of teams solving an equal number of challenges, the faster teams rank higher on the leaderboard.}
-\footnotetext{The full leaderboard, including human teams, is available at REDACTED.}
 
-The first event in our series was the \emph{AI vs. Humans} CTF, organized in collaboration with Hack The Box on 14-16 March 2025.\footnote{Event link: REDACTED} This event was the first to publicly pit fully autonomous AI agents against experienced human teams in real-time, offering 20 cybersecurity challenges over 48 hours. We offered a prize pool of \$7500 to incentivize participation and effort.
+The first event in our series was the \emph{AI vs. Humans} CTF, organized in collaboration with Hack The Box on 14-16 March 2025.\footnotemark[2] \footnotetext[2]{Event link: https://ctf.hackthebox.com/event/details/ai-vs-human-ctf-challenge-2000} This event was the first to publicly pit fully autonomous AI agents against experienced human teams in real-time, offering 20 cybersecurity challenges over 48 hours. We offered a prize pool of \$7500 to incentivize participation and effort.
 
 For the pilot event, we wanted to make it as easy as possible for the AI teams to compete. To that end, we used cryptography and reverse engineering challenges which could be completed locally, without the need for dynamic interactions with external machines.
 
-We calibrated the challenge difficulty based on preliminary evaluations of our React\&Plan agent \cite{authors2024} on older Hack The Box-style tasks such that the AI could solve $\sim$50\% of tasks.
+We calibrated the challenge difficulty based on preliminary evaluations of our React\&Plan agent \cite{turtayev2024hackingctfsplainagents} on older Hack The Box-style tasks such that the AI could solve $\sim$50\% of tasks.
 
-See Appendix~\ref{sec:agent_designs} for the submitted agents' designs. All event performance data is available at [REDACTED].
+See Appendix~\ref{sec:agent_designs} for the submitted agents' designs. All event performance data is available at \href{https://github.com/palisaderesearch/ai-vs-humans-ctf-report}{https://github.com/palisaderesearch/ai-vs-humans-ctf-report}.
+
+
+\footnotetext[3]{In case of teams solving an equal number of challenges, the faster teams rank higher on the leaderboard.}
+\footnotetext[4]{The full leaderboard, including human teams, is available at https://ctftime.org/event/2723.}
 
 \subsection{Absolute standings}
 
-Overall 403 teams registered for the event, of which 158 solved at least 1 challenge: 152 human teams and 6 AI teams. The authors ran 2 AI agents during this event: a Claude Code adapted for CTFs and a React\&Plan agent.
+Overall 403 teams registered for the event, of which 158 solved at least 1 challenge: 152 human teams and 6 AI teams. The Palisade Research team ran 2 AI agents during this event: a Claude Code adapted for CTFs and a React\&Plan agent.
 
 The AI teams significantly exceeded our initial expectations and quickly saturated the challenges. The best AI team achieved top-5\% performance (top-13\% among teams solving at least one challenge), and most AI teams outperformed most humans (Figure~\ref{fig:ai_vs_hum_progression_all}). Four out of seven agents completed 19/20 challenges. This highlights the power of crowdsourcing.
 
@@ -139,52 +164,68 @@ One of the core advantages AIs typically hold over humans is speed. As shown in 
 We were impressed the humans could match AI speeds, and reached out to the human teams for comments. Participants attributed their ability to solve the challenges quickly to their extensive experience as professional CTF players, noting that they were familiar with the standard techniques commonly used to solve such problems. One participant, for example, said that he was ``playing on a couple of internationally-ranked teams with years of experience''.
 
 
-\begin{figure*}[htbp]
+\begin{figure*}[t!]
     \centering
     \includegraphics[width=0.8\textwidth]{plots/team_progression_CyberApocalypse_aligned.pdf}
     \caption{Challenges solved over time for top teams, \emph{Cyber Apocalypse} CTF}
+    \Description{Line chart showing challenge progression over time for top teams in the Cyber Apocalypse CTF competition}
     \label{fig:ca_progression}
-    \end{figure*}
+\end{figure*}
 
-
-\begin{table*}[htb]
+\begin{table*}[t!]
     \centering
     \begin{tabular}{lcc}
-    \hline
+    \toprule
     \textbf{Agent} & \textbf{Challenges solved} & \textbf{Leaderboard rank} \\
-    \hline
+    \midrule
     CAI & 20 / 62 & 859 \\
-    Authors' Claude Code\footnotemark & 5 / 62 & 2496 \\
-    Authors' Aider & 3 / 62 & 2953 \\
-    Authors' React\&Plan & 2 / 62 & 3199 \\
-    \hline
+    Palisade Claude Code\footnotemark[5] & 5 / 62 & 2496 \\
+    Palisade Aider\footnotemark[5] & 3 / 62 & 2953 \\
+    Palisade React\&Plan\footnotemark[5] & 2 / 62 & 3199 \\
+    \bottomrule
     \end{tabular}
-    \caption{AI agents standings for \emph{Cyber Apocalypse} CTF\footnotemark}
+    \caption[AI agents standings for \emph{Cyber Apocalypse} CTF]{AI agents standings for \emph{Cyber Apocalypse} CTF\footnotemark[6]}
     \label{tab:ca_standings}
 \end{table*}
-\footnotetext{Authors' submissions performed poorly because our harness was not designed to interact with external machines, while about 2/3 of challenges required it.}
-\footnotetext{The full leaderboard, including human teams, is available at https://ctftime.org/event/2674}
 
+% \begin{table*}[h]
+% \centering
+% \begin{tabular}{lcccc}
+% \toprule
+% \textbf{Name} & \textbf{AP} & \textbf{DV} & \textbf{Others at Palisade} & \textbf{Event participants} \\
+% \midrule
+% Original idea and methodology &  & $\bullet$ &  &  \\
+% Event organization & $\bullet$ &  &  &  \\
+% Running AI agents & $\bullet$ &  & $\bullet$ & $\bullet$ \\
+% Evaluation & $\bullet$ &  &  &  \\
+% Writing & $\bullet$ & $\bullet$ &  &  \\
+% \bottomrule
+% \end{tabular}
+% \caption{Authors' contributions}
+% \label{tab:authors_contributions}
+% \end{table*}
 
-\begin{figure*}[h!tb]
-    \centering
-    \includegraphics[width=0.8\textwidth]{plots/is_ai_solved_vs_median_human_time_regression_CyberApocalypse.pdf}
-    \caption{50\%-task-completion time horizon, \emph{Cyber Apocalypse} (top 1\% human teams)}
-    \label{fig:average_solve_time}
-    \end{figure*}
-    
-    
-    
-        
 
 \section{\emph{Cyber Apocalypse}}
 
-On 21--26 March 2025 we hosted an AI track at \emph{Cyber Apocalypse},\footnote{https://www.hackthebox.com/events/cyber-apocalypse-2025} an annual Hack The Box competition that attracts a large number of human participants and offers a diverse set of challenges. 8129 human teams (18369 players) registered for the event, and 3994 teams solved at least one challenge.
+\footnotetext[5]{Palisade's submissions performed poorly because our harness was not designed to interact with external machines, while about 2/3 of challenges required it.}
+\footnotetext[6]{The full leaderboard, including human teams, is available at https://ctftime.org/event/2674}
+
+On 21--26 March 2025 we hosted an AI track at \emph{Cyber Apocalypse},\footnote[7]{https://www.hackthebox.com/events/cyber-apocalypse-2025} an annual Hack The Box competition that attracts a large number of human participants and offers a diverse set of challenges. 8129 human teams (18369 players) registered for the event, and 3994 teams solved at least one challenge.
 
 We invited the AI teams from the \emph{AI vs. Humans} CTF event to participate in this competition to evaluate their performance in a different environment. Ultimately, two AI teams took part, collectively deploying four AI agents. The best AI agent achieved top-10\% performance (top-21\% among teams solving at least one challenge, Table~\ref{tab:ca_standings}).
 
 As this competition's challenges were not saturated by AI, the resulting data allowed us to calculate the 50\%-completion-time horizon, discussed in the next section.
+
 \section{Ability to complete long tasks}
+
+\begin{figure*}[htb]
+    \centering
+    \includegraphics[width=0.8\textwidth]{plots/is_ai_solved_vs_median_human_time_regression_CyberApocalypse.pdf}
+    \caption{50\%-task-completion time horizon, \emph{Cyber Apocalypse} (top 1\% human teams)}
+    \Description{Scatter plot showing the relationship between AI solve rates and median human completion times for Cyber Apocalypse challenges}
+    \label{fig:average_solve_time}
+\end{figure*}
 
 Modern AIs are known to struggle with tasks that require staying coherent on long timescales. A recent study by METR has shown that modern AIs can reliably complete tasks requiring up to 1 hour of human expert effort in software engineering \cite{kwa2025measuringaiabilitycomplete}.
 
@@ -194,11 +235,9 @@ Using the \emph{Cyber Apocalypse} data, we find that AI can solve challenges req
 
 \section{Conclusion}
 
-
-
 Accurately assessing the offensive capabilities of AI systems remains a major challenge for policymakers and researchers. Relying solely on evaluations conducted by a single team may be insufficient. To better understand the highly dynamic nature of AI capabilities, we need robust, open-market, real-time evaluations.
 
-Toward this goal, we hosted a first-of-its-kind\footnote{The only other similar competition we know of was held as part of DARPA's AI Cyber Challenge (AIxCC), it had a different focus on advancing AI for cyber defense. See: https://aicyberchallenge.com} \emph{AI vs. Humans} CTF competition, inviting AI developers to directly compete against each other and against human teams. We also analyzed AI performance in \emph{Cyber Apocalypse}, a large CTF with thousands of participants.
+Toward this goal, we hosted a first-of-its-kind\footnote[8]{The only other similar competition we know of was held as part of DARPA's AI Cyber Challenge (AIxCC), it had a different focus on advancing AI for cyber defense. See: https://aicyberchallenge.com} \emph{AI vs. Humans} CTF competition, inviting AI developers to directly compete against each other and against human teams. We also analyzed AI performance in \emph{Cyber Apocalypse}, a large CTF with thousands of participants.
 
 Our results suggest that crowdsourcing elicitation is a promising approach to assessing AI capabilities: crowdsourced AI performance wildly exceeded our initial expectations, with AIs saturating the \emph{AI vs. Humans} CTF for a prize pool of only \$7500.
 
@@ -211,18 +250,48 @@ We suggest several ways in which crowdsourcing can offer value for different sta
 
 \item \textbf{For frontier AI labs}: Open-market evaluations offer a fast, low-cost way to uncover overlooked capabilities and validate internal evaluations.
 
-\item \textbf{For CTF Organizers}: Adding an AI track can increase visibility, attract participants, and introduce new research and media interest. The authors are happy to assist with this.
+\item \textbf{For CTF Organizers}: Adding an AI track can increase visibility, attract participants, and introduce new research and media interest. Palisade Research is happy to assist with this.
 \end{itemize}
 
 As AI systems' capabilities grow, evaluation must keep pace. Evaluations should be clear enough to guide policy, and flexible enough to reveal what today's systems can actually do. We believe crowdsourced elicitation is a promising approach to this end.
 
-\section*{Acknowledgements}
 
-[Acknowledgements will be added upon publication to maintain anonymity during review.]
+
+\begin{table*}[h]
+    \centering
+    \begin{tabular}{lcccc}
+    \toprule
+    \textbf{Name} & \textbf{AP} & \textbf{DV} & \textbf{Others at Palisade} & \textbf{Event participants} \\
+    \midrule
+    Original idea and methodology &  & $\bullet$ &  &  \\
+    Event organization & $\bullet$ &  &  &  \\
+    Running AI agents & $\bullet$ &  & $\bullet$ & $\bullet$ \\
+    Evaluation & $\bullet$ &  &  &  \\
+    Writing & $\bullet$ & $\bullet$ &  &  \\
+    \bottomrule
+    \end{tabular}
+    \caption{Authors' contributions}
+    \label{tab:authors_contributions}
+    \end{table*}
+    
+%%
+%% Authors' contributions table
+
+
+\begin{acks}
+
+We thank our Palisade Research colleagues: Reworr, who helped set up and run the Claude Code agent, achieving second place among AI teams; Rustem Turtayev, who helped set up the React\&Plan agent (which Artem had run); and Alexander Bondarenko, for experimenting with the Aider agent.
+
+We thank Malika Toqmadi for help editing this manuscript.
+
+We thank the AI teams who designed agents for this competition: CAI (Víctor Mayoral-Vilches, Endika Gil-Uriarte, Unai Ayucar-Carbajo, Luis Javier Navarrete-Lozano, María Sanz-Gómez, Lidia Salas Espejo, Martiño Crespo-Álvarez), Imperturbable (James Lucassen), FCT, Cyagent, and Project S1ngularity.
 
 We are grateful to Hack The Box for providing challenges for the \emph{AI vs Humans} CTF event, supporting us in organizing this event, and providing data for our analysis. This event would not happen without their help!
+\end{acks}
 
-% Authors' contributions section removed for anonymous submission
+
+\bibliographystyle{ACM-Reference-Format}
+\bibliography{ref}
 
 \appendix
 
@@ -231,14 +300,14 @@ We are grateful to Hack The Box for providing challenges for the \emph{AI vs Hum
 \begin{table*}[t]
 \centering
 \begin{tabular}{lcccc}
-\hline
+\toprule
 \textbf{AI team type} & \textbf{Invited by us} & \textbf{Accepted invite} & \textbf{Independently reached out} & \textbf{CTF team names} \\
-\hline
+\midrule
 Offensive AI startups & 9 & 0 & 1 & CAI \\
 Researchers & 3 & 1 & 0 & Cyagent \\
 Frontier Labs & 2 & 1 & 0 & FCT \\
 Individuals & 0 & 0 & 3 & Imperturbable, Project S1ngularity \\
-\hline
+\bottomrule
 \end{tabular}
 \caption{AI teams registration flow for the AI vs Humans event}
 \label{tab:registration-flow}
@@ -258,7 +327,7 @@ Below are some of the agent designs used by AI teams.
 
 \subsection{CAI}
 
-Used a custom harness design they spent about 500 dev-hours on, see \cite{caiteampaper}.
+Used a custom harness design they spent about 500 dev-hours on, see \cite{mayoralvilches2025caiopenbugbountyready}.
 
 \subsection{Imperturbable}
 
@@ -275,13 +344,13 @@ I used EnIGMA (with some modifications) and Claude Code, with different prompts 
 \end{itemize}
 \end{quote}
 
-\subsection{Authors' Claude Code}
+\subsection{Palisade Claude Code}
 
 We used an off-the-shelf Claude Code prompted for solving CTF challenges.
 
-\subsection{Authors' React\&Plan}
+\subsection{Palisade React\&Plan}
 
-See \cite{authors2024}.
+See \cite{turtayev2024hackingctfsplainagents}.
 
 \section{Measuring 50\%-task-completion time horizon} \label{sec:equivalent_human_effort}
 
@@ -291,54 +360,15 @@ Hack The Box estimates difficulty of the challenges by measuring how long it tak
 
 When measuring ``human expert performance'' it is important to know whom we consider an expert. Since both events analyzed in this paper were open to the public, the expertise of participants varied from casuals to professional CTF players.
 
-We can measure the position of the human team on the leaderboard as a measure of its expertise. Figure~\ref{fig:ca_time_horizon_detailed} shows how the 50\%-task-completion time horizon estimates change depending on which percentile of the human teams we consider to be experts. The estimates maintain a similar order of magnitude.
-
-
-
-
+We can use the position of the human team on the leaderboard as a measure of its expertise. Figure~\ref{fig:ca_time_horizon_detailed} shows how the 50\%-task-completion time horizon estimates change depending on which percentile of the human teams we consider to be experts. The estimates maintain a similar order of magnitude of $\sim$1 hour.
 
 \begin{figure*}[htbp]
 \centering
 \includegraphics[width=0.8\textwidth]{plots/is_ai_solved_vs_median_human_time_regression_CyberApocalypse_detailed.pdf}
 \caption{50\%-task-completion time horizon estimates, depending on which percentage of top human teams we consider experts for calculating the human solve times (\emph{Cyber Apocalypse})}
+\Description{Line chart showing how 50\%-task-completion time horizon estimates vary based on different definitions of human expertise levels}
 \label{fig:ca_time_horizon_detailed}
 \end{figure*}
 
-\section{Reproducibility Checklist}
 
-This paper:
-
-    Includes a conceptual outline and/or pseudocode description of AI methods introduced (NA)
-
-    Clearly delineates statements that are opinions, hypothesis, and speculation from objective facts and results (yes)
-
-    Provides well marked pedagogical references for less-familiare readers to gain background necessary to replicate the paper (yes)
-
-Does this paper make theoretical contributions? (no)
-
-Does this paper rely on one or more datasets? (yes, the scoreboards and flag submission logs from the CTF events)
-
-If yes, please complete the list below.
-
-    A motivation is given for why the experiments are conducted on the selected datasets (yes)
-
-    All novel datasets introduced in this paper are included in a data appendix. (yes, all data is available in the github repo (no link yet for anonymity))
-
-    All novel datasets introduced in this paper will be made publicly available upon publication of the paper with a license that allows free usage for research purposes. (yes)
-
-    All datasets drawn from the existing literature (potentially including authors’ own previously published work) are accompanied by appropriate citations. (NA)
-
-    All datasets drawn from the existing literature (potentially including authors’ own previously published work) are publicly available. (NA)
-
-    All datasets that are not publicly available are described in detail, with explanation why publicly available alternatives are not scientifically satisficing. (NA)
-
-
-Does this paper include computational experiments? (no)
-
-All source code required for analyzing the experiments will be made publicly available upon publication of the paper with a license that allows free usage for research purposes. (yes)
-
-% References and End of Paper
-% These lines must be placed at the end of your paper
-\bibliographystyle{aaai2026}
-\bibliography{../paper-typst/ref}
 \end{document}

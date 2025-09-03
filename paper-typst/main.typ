@@ -353,7 +353,7 @@ Hack The Box estimates difficulty of the challenges by measuring how long it tak
 
 When measuring "human expert performance" it is important to know whom we consider an expert. Since both events analyzed in this paper were open to the public, the expertise of participants varied from casuals to professional CTF players.
 
-We can measure the position of the human team on the leaderboard as a measure of its expertise. @ca_time_horizon_detailed shows how the 50%-task-completion time horizon estimates change depending on which percentile of the human teams we consider to be experts. The estimates maintain a similar order of magnitude.
+We can use the position of the human team on the leaderboard as a measure of its expertise. @ca_time_horizon_detailed shows how the 50%-task-completion time horizon estimates change depending on which percentile of the human teams we consider to be experts. The estimates maintain a similar order of magnitude of \~1 hour.
 
 // TODO: [nit] Add info on how many flags were submitted without first accessing the files?
 

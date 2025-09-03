@@ -1,11 +1,10 @@
-# template
+# Evaluating AI Cyber Capabilities with Crowdsourced Elicitation
 
-A template repository implementing Palisade's coding guide. Features:
+This repository contains the source code and data for the paper "Evaluating AI Cyber Capabilities with Crowdsourced Elicitation" by Artem Petrov and Dmitrii Volkov. 
 
-- Nix + uv + direnv environment for development and CI
-- Figures and the paper build in CI
-- Lint and format pre-commit hooks
-- VSCode settings and extensions
+You can find the raw data in the `data` folder. 
+
+You can find the code for drawing figures in the `src` folder.
 
 ## Development
 
