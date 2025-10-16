@@ -6,7 +6,7 @@ You can find the raw data in the `data` folder.
 
 You can find the code for drawing figures in the `src` folder.
 
-You can find the paper sources in the various `paper-<...>` folders.
+You can find the paper sources in the various `paper-<...>` folders. `paper-haips` is the latest edit.
 
 ## Development
 
