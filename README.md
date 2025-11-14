@@ -2,7 +2,7 @@
 
 ![50%-task-completion time horizon, Cyber Apocalypse (top 1% human teams)](paper-typst/plots/is_ai_solved_vs_median_human_time_regression_CyberApocalypse.svg)
 
-*50%-task-completion time horizon, Cyber Apocalypse (top 1% human teams)*
+*AI can solve challenges which require 1 hour of effort from the top human CTF participants*
 
 ---
 
