@@ -1,6 +1,6 @@
 # Evaluating AI Cyber Capabilities with Crowdsourced Elicitation
 
-This repository contains the source code and data for the paper "Evaluating AI Cyber Capabilities with Crowdsourced Elicitation" by Artem Petrov and Dmitrii Volkov. 
+This repository contains the source code and data for the paper "Evaluating AI Cyber Capabilities with Crowdsourced Elicitation" by Artem Petrov and Dmitrii Volkov. (preprint link: https://arxiv.org/abs/2505.19915)
 
 You can find the raw data in the `data` folder. 
 
